@@ -4,10 +4,10 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
 
 //screens
-import HomeScreen from "./src/screens/HomeScreen";
-import SettingsScreen from "./src/screens/SettingsScreen";
-import StackScreen from "./src/screens/StackScreen";
-import ProfileScreen from "./src/screens/ProfileScreen";
+import HomeScreen from "./src/screens/navigation_screens/HomeScreen";
+import SettingsScreen from "./src/screens/navigation_screens/SettingsScreen";
+import StackScreen from "./src/screens/navigation_screens/StackScreen";
+import ProfileScreen from "./src/screens/navigation_screens/ProfileScreen";
 
 //icons
 import { MaterialCommunityIcons } from '@expo/vector-icons';

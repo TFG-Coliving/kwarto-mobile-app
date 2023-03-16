@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
-import StackScreenButton from "../components/StackScreenButton";
+import StackScreenButton from "../../components/buttons/StackScreenButton";
 import {useNavigation} from "@react-navigation/native";
 const HomeScreen = () => {
   const navigation = useNavigation();

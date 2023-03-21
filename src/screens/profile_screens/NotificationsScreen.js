@@ -1,17 +1,18 @@
 import React from "react";
-import {View, Text, StyleSheet} from "react-native";
-const ProfileScreen = () => {
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+
+const NotificationsScreen = ({navigation}) => {
   return (
       <View>
         <Text
             style={styles.text}
-        >Profile Screen</Text>
+        >Notifications Screen</Text>
       </View>
 
   );
 }
 
-export default ProfileScreen;
+export default NotificationsScreen;
 
 const styles = StyleSheet.create({
   text: {

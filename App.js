@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from './Navigation';
+import BottomNavigation from './src/navigation/BottomNavigation';
 
 
 export default function App() {
   return (
-    <Navigation/>
+    <BottomNavigation/>
   );
 }
 

@@ -4,13 +4,14 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
 
 //screens
-import HomeScreen from "./src/screens/navigation_screens/HomeScreen";
-import SettingsScreen from "./src/screens/navigation_screens/SettingsScreen";
-import StackScreen from "./src/screens/navigation_screens/StackScreen";
-import ProfileScreen from "./src/screens/navigation_screens/ProfileScreen";
+import HomeScreen from "../screens/bottom_navigation_screens/HomeScreen";
+
+import StackScreen from "../screens/bottom_navigation_screens/StackScreen";
+import ProfileScreen from "../screens/profile_screens/ProfileScreen";
 
 //icons
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ProfileMenuScreen from "../screens/bottom_navigation_screens/ProfileMenuScreen";
 
 const HomeStackNavigator = createNativeStackNavigator();
 function MyStack() {
@@ -20,7 +21,7 @@ function MyStack() {
         >
             <HomeStackNavigator.Screen
                 name="Profile"
-                component={ProfileScreen}
+                component={ProfileMenuScreen}
             />
             <HomeStackNavigator.Screen
                 name="HomeScreen"
@@ -49,15 +50,7 @@ function MyTabs() {
                 }
             }
         >
-            <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
-                options={{
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="account" color={color} size={30} />
-                  ),
-                }}
-            />
+
             <Tab.Screen
                 name="Home"
                 component={MyStack}
@@ -69,19 +62,20 @@ function MyTabs() {
                 }}
             />
             <Tab.Screen
-                name="Settings"
-                component={SettingsScreen}
-                options={{
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="brightness-5" color={color} size={30} />
-                  ),
-                }}
+              name="Profile"
+              component={ProfileMenuScreen}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="account" color={color} size={30} />
+                ),
+                headerShown: false
+              }}
             />
         </Tab.Navigator>
     );
 }
 
-export default function Navigation() {
+export default function BottomNavigation() {
     return (
         <NavigationContainer>
             <MyTabs/>

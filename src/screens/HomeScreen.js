@@ -1,126 +1,154 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  TextInput,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [data, setData] = useState([]);
-  const [filterData, setFilterData] = useState([]);
-
-  useEffect(() => {
-    fetchData("https://randomuser.me/api/?results=20");
-  }, []);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerLargeTitle: true,
-      headerTitle: "Home",
-      headerRight: () => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Stack")}
-            style={{
-              backgroundColor: "purple",
-              width: 30,
-              height: 30,
-              borderRadius: 10,
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 20,
-                textAlign: "center",
-                color: "white",
-              }}
-            >
-              +
-            </Text>
-          </TouchableOpacity>
-    ),
-    headerSearchBarOptions: {
-      placeholder: "Friends",
-      onChangeText: (event) => {
-        searchFilterFunction(event.nativeEvent.text);
-      },
+  const [data, setData] = useState([
+    {
+      id: 1,
+      name: "Habitación individual en el centro",
+      image: "https://via.placeholder.com/150",
+      description: "Habitación individual en el centro de la ciudad",
+      price: "$50 por noche",
     },
-    });
-  }, [navigation]);
+    {
+      id: 2,
+      name: "Habitación doble cerca de la playa",
+      image: "https://via.placeholder.com/150",
+      description: "Habitación doble cerca de la playa con balcón",
+      price: "$80 por noche",
+    },
+    {
+      id: 3,
+      name: "Apartamento de lujo en el centro histórico",
+      image: "https://via.placeholder.com/150",
+      description: "Apartamento de lujo en el centro histórico de la ciudad",
+      price: "$150 por noche",
+    },
+    {
+      id: 4,
+      name: "Habitación triple con vistas a la montaña",
+      image: "https://via.placeholder.com/150",
+      description: "Habitación triple con vistas a la montaña",
+      price: "$100 por noche",
+    },
+    {
+      id: 5,
+      name: "Casa en la playa con piscina",
+      image: "https://via.placeholder.com/150",
+      description: "Casa en la playa con piscina privada",
+      price: "$200 por noche",
+    },
+  ]);
+  const [filterData, setFilterData] = useState(data);
+  const [searchText, setSearchText] = useState("");
 
-  const fetchData = async (url) => {
-    try {
-      const response = await fetch(url);
-      const json = await response.json();
-      setData(json.results);
-      setFilterData(json.results);
-      console.log(json.results);
-    } catch (err) {
-      console.error(err);
+  const searchFilterFunction = (text) => {
+    if (text) {
+      const newData = data.filter((item) => {
+        const itemData = item.name.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilterData(newData);
+      setSearchText(text);
+    } else {
+      setFilterData(data);
+      setSearchText("");
     }
   };
 
-  const searchFilterFunction = (text) => {
-    if (text){
-      const newData = data.filter(item => {
-        const itemData = item.name.first ? item.name.first.toUpperCase() : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      })
-      setFilterData(newData);
-    }else{
-      setFilterData(data);
-    }
-  }
-
   return (
-    <ScrollView>
-      <Text style={styles.textFriends}>Friends</Text>
-      {filterData.map((item, index) => {
-        return (
-          <View key={index} style={styles.itemContainer}>
-            <Image source={{ uri: item.picture.large }} style={styles.image} />
-            <View>
-              <Text style={styles.textName}>
-                {item.name.first}
-                {item.name.last}
-              </Text>
-              <Text style={styles.textEmail}>{item.login.username}</Text>
-            </View>
-          </View>
-        );
-      })}
-    </ScrollView>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Buscar habitaciones"
+        value={searchText}
+        onChangeText={(text) => searchFilterFunction(text)}
+      />
+      <ScrollView>
+        <Text style={styles.textRooms}>Habitaciones disponibles</Text>
+        {filterData.map((item, index) => {
+          return (
+            <TouchableOpacity
+              key={item.id}
+              style={styles.itemContainer}
+              onPress={() =>
+                navigation.navigate("Details", {
+                  id: item.id,
+                  name: item.name,
+                  image: item.image,
+                  description: item.description,
+                  price: item.price,
+                })
+              }
+            >
+              <Image source={{ uri: item.image }} style={styles.image} />
+              <View>
+                <Text style={styles.textName}>{item.name}</Text>
+                <Text style={styles.textDescription}>{item.description}</Text>
+                <Text style={styles.textPrice}>{item.price}</Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 };
-
-export default HomeScreen;
-
 const styles = StyleSheet.create({
-  textFriends: {
+  container: {
+    flex: 1,
+  },
+  searchInput: {
+    height: 40,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingLeft: 15,
+    margin: 10,
+  },
+  textRooms: {
     fontSize: 20,
     textAlign: "left",
     marginLeft: 10,
-    fontWeight: "bold",
     marginTop: 10,
   },
   itemContainer: {
     flexDirection: "row",
-    alignItes: "center",
-    marginLeft: 10,
-    marginTop: 10,
+    alignItems: "center",
+    padding: 10,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 80,
+    height: 80,
+    marginRight: 10,
   },
   textName: {
-    fontSize: 17,
-    marginLeft: 10,
-    fontWeight: "600",
+    fontSize: 16,
+    fontWeight: "bold",
   },
-  textEmail: {
+  textDescription: {
     fontSize: 14,
-    marginLeft: 10,
-    color: "grey",
+    marginTop: 5,
+    color: "#444",
+  },
+  textPrice: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 5,
   },
 });
+
+export default HomeScreen;

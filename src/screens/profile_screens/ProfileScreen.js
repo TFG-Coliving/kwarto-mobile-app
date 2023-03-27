@@ -1,50 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
-
-async function getToken(){
-  try{
-    const response = await fetch('http://172.17.41.21:8000/api/auth/authenticate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({'email':'lorien@example.com', 'password':'1234'}),
-    });
-    const json = await response.json();
-    return json["token"];
-  } catch (e) {
-    
-  }
-}
-async function getProfile(token){
-  try {
-    const response = await fetch('http://172.17.41.21:8000/api/user',{
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-      }
-    });
-    const json = await response.json();
-    console.log(json);
-
-  } catch (e) {
-    console.log(e);
-  }
-}
+import Users from "../../redux/modules/users";
+import {useSelector} from "react-redux";
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
-  getToken().then((token) => { getProfile(token) });
-
   return (
       <View style={styles.container}>
         <View style={styles.profile}>
           <Image source={require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
           <View style={styles.profileDetails}>
-            <Text style={styles.name}>John Doe</Text>
+            <Text style={styles.name}>El nano</Text>
             <View style={styles.score}>
               <Ionicons name='md-star' size={24} color='#f7d825' />
               <Ionicons name='md-star' size={24} color='#f7d825' />

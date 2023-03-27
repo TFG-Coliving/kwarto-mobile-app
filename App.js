@@ -1,10 +1,9 @@
-import React from 'react';
-import BottomNavigation from './src/navigation/BottomNavigation';
+import React from 'react-native';
+import RootComponent from "./RootComponent";
 
 
 export default function App() {
   return (
-    <BottomNavigation/>
+    <RootComponent/>
   );
 }
-

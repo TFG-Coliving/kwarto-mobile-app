@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
-
+import Users from "../../redux/modules/users";
+import {useSelector} from "react-redux";
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
@@ -12,7 +13,7 @@ export default function ProfileScreen( ) {
         <View style={styles.profile}>
           <Image source={require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
           <View style={styles.profileDetails}>
-            <Text style={styles.name}>John Doe</Text>
+            <Text style={styles.name}>El nano</Text>
             <View style={styles.score}>
               <Ionicons name='md-star' size={24} color='#f7d825' />
               <Ionicons name='md-star' size={24} color='#f7d825' />

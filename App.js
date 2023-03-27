@@ -1,15 +1,9 @@
-import React from 'react';
-import BottomNavigation from './src/navigation/BottomNavigation';
-import LoginScreen from "./src/screens/login_register_screens/LoginScreen";
-import {NavigationContainer} from "@react-navigation/native";
-import AuthStack from "./src/navigation/AuthStack";
+import React from 'react-native';
+import RootComponent from "./RootComponent";
 
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <AuthStack/>
-    </NavigationContainer>
+    <RootComponent/>
   );
 }
-

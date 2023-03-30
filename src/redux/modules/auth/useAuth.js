@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {login} from "./authModule";
 import {useState} from "react";
 
-const Auth = () => {
+const useAuth = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const isLoggedIn = useSelector(state => state.authentication.isLoggedIn);
@@ -19,4 +19,6 @@ const Auth = () => {
     setUsername,
     setPassword
   }
-}
+};
+
+export default useAuth;

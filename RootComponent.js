@@ -1,14 +1,14 @@
 import React from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './src/redux/reducers/rootReducer';
+import store from './src/redux/store/store';
 import BottomNavigation from "./src/navigation/BottomNavigation";
-
-const store = createStore(rootReducer); // create a store with your reducers
+import useAuth from "./src/redux/modules/auth/useAuth";// create a store with your reducers
 
 export default function RootComponent() {
-  const auth = auth('lorien@example.com', '1234');
-  auth.handleLogin();
+  const { setUsername, setPassword, handleLogin } = useAuth(); // use the useAuth hook to get the auth methods
+  setUsername("lorien@example.com");
+  setPassword("1234");
+  handleLogin({});
   return (
       <Provider store={store}>
         <BottomNavigation />

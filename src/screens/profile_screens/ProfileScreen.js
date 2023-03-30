@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
-import Users from "../../redux/modules/users";
+import Users from "../../redux/modules/users/users";
 import {useSelector} from "react-redux";
 
 export default function ProfileScreen( ) {

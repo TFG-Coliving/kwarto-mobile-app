@@ -1,18 +1,16 @@
 import axios from 'axios';
 import { LOGIN_SUCCESS, LOGIN_FAILURE } from './authConstants';
+import {API_LOGIN} from "../../endpoints";
 
-export const login = (email = "lorien@example.com", password="1234") => dispatch => {
+export const login = (email="", password="") => dispatch => {
   return axios
   .post(API_LOGIN, {
     email,
     password
   })
   .then(response => {
-    if (response["token"]) {
-      const token = response["token"];
-      localStorage.setItem('user', JSON.stringify(response.data));
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+    if (response.data.token) {
+      dispatch({ type: LOGIN_SUCCESS, payload: response.data.token });
     } else {
       dispatch({ type: LOGIN_FAILURE, payload: response.data });
     }

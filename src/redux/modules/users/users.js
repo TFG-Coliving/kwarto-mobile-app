@@ -1,39 +1,25 @@
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCurrentUser} from "./usersModule";
+import {useEffect} from "react";
 
 const Users = () => {
   const user = useSelector(state => state.users);
+  const dispatch = useDispatch();
 
-  const getUser = () => {
-    return user;
-  };
-  const getFirstName = () => {
-    return user.firstname;
-  }
-  const getLastName = () => {
-    return user.lastname;
-  }
-  const getEmail = () => {
-    return user.email;
-  }
-  const getRole = () => {
-    return user.role;
-  }
-  const getPhone = () => {
-    return user.phone;
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
-  }
-  const getScore = () => {
-    return user.score;
-  }
-  const getScoreHidden = () => {
-    return user.score_hidden;
-  }
-  const getBirthDate = () => {
-    return user.birth_date;
-  }
-  const getProfilePicture = () => {
-    return user.profilePicture.uri;
-  }
+  const getUser = () => user;
+  const getFirstName = () => user.firstname;
+  const getLastName = () => user.lastname;
+  const getEmail = () => user.email;
+  const getRole = () => user.role;
+  const getPhone = () => user.phone;
+  const getScore = () => user.score;
+  const getScoreHidden = () => user.score_hidden;
+  const getBirthDate = () => user.birth_date;
+  const getProfilePicture = () => user.profilePicture.uri;
 
   return {
     getUser,

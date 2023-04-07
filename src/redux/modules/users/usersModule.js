@@ -1,10 +1,12 @@
 import axios from "axios";
 import {REQUEST_USER_FAILURE, REQUEST_USER_SUCCESS} from "./usersConstants";
+import {API_USER} from "../../endpoints";
+import {useSelector} from "react-redux";
 
 export const getCurrentUser = () => dispatch => {
   return axios.get(API_USER, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('user')['token']}`
+      Authorization: useSelector(state => state.authentication.token)
     }
   })
   .then(response => {

@@ -1,2 +1,3 @@
-export const API_USER = 'http://172.17.41.21:8000/api/user';
-export const API_LOGIN = 'http://172.17.41.21:8000/api/auth/authenticate';
+const API = 'http://172.17.41.21:8000/api/';
+export const API_USER = API + 'user';
+export const API_LOGIN = API + 'auth/authenticate';

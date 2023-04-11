@@ -10,7 +10,8 @@ const useAuth = () => {
 
   const handleLogin = e => {
     e.preventDefault();
-    dispatch(login(email, password));
+    console.log("E: " + e.email);
+    dispatch(login(e.email, e.password));
   };
 
   return {

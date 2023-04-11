@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, SafeAreaView, Image, TextInput, TouchableOpacity,ScrollView} from 'react-native';
 import {Ionicons, MaterialIcons} from "@expo/vector-icons";
 import CustomButton from "../../components/buttons/CustomButton";
 import InputFields from "../../components/fields/InputFields";
+import useAuth from "../../redux/modules/auth/useAuth";
 
 
 const LoginScreen = ({navigation}) => {
+
+    const { handleLogin } = useAuth();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+
     return (
         <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
             <ScrollView showsVerticalScrollIndicator={false} style={{paddingHorizontal: 25}}>
@@ -41,6 +48,9 @@ const LoginScreen = ({navigation}) => {
                     label={'Email'}
                     icon={ <MaterialIcons name={'alternate-email'} size={24} color={'#333'} style={{marginRight: 5}}/>}
                     keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+
                 />
                 <InputFields
                     label={'Password'}
@@ -48,13 +58,17 @@ const LoginScreen = ({navigation}) => {
                     inputType='password'
                     fieldButtonLabel={"Forgot?"}
                     fieldButtonFunction={()=>{}}
+                    value={password}
+                    onChangeText={setPassword}
                 />
 
                 {/*BOTON LOGIN*/}
 
                 <CustomButton
                     label={'Login'}
-                    onPress={()=>{}}
+                    onPress={() => {
+                        handleLogin({ email, password, preventDefault: () => {} })
+                    }}
                 />
 
                 <Text style ={{textAlign: 'center', color:'#666',marginBottom:30}}>Or login with ...</Text>

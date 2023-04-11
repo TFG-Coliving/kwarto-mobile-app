@@ -3,6 +3,7 @@ import { LOGIN_SUCCESS, LOGIN_FAILURE } from './authConstants';
 import {API_LOGIN} from "../../endpoints";
 
 export const login = (email="", password="") => dispatch => {
+  console.log(" A- " +email + " B- " + password);
   return axios
   .post(API_LOGIN, {
     email,

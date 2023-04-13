@@ -12,91 +12,316 @@ import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [data, setData] = useState([
+  const [dataAlquiler] = useState([
     {
       id: 1,
-      name: "Habitación individual en el centro",
+      name: "PRUEBA ALQUILER",
       image: "https://via.placeholder.com/150",
-      description: "Habitación individual en el centro de la ciudad",
+      location: "Madrid",
       price: "$50 por noche",
     },
     {
       id: 2,
       name: "Habitación doble cerca de la playa",
       image: "https://via.placeholder.com/150",
-      description: "Habitación doble cerca de la playa con balcón",
+      location: "Barcelona",
       price: "$80 por noche",
     },
     {
       id: 3,
       name: "Apartamento de lujo en el centro histórico",
       image: "https://via.placeholder.com/150",
-      description: "Apartamento de lujo en el centro histórico de la ciudad",
+      location: "Sevilla",
       price: "$150 por noche",
     },
     {
       id: 4,
       name: "Habitación triple con vistas a la montaña",
       image: "https://via.placeholder.com/150",
-      description: "Habitación triple con vistas a la montaña",
+      location: "Leon",
       price: "$100 por noche",
     },
     {
       id: 5,
       name: "Casa en la playa con piscina",
       image: "https://via.placeholder.com/150",
-      description: "Casa en la playa con piscina privada",
+      location: "Valencia",
+      price: "$200 por noche",
+    },
+    {
+      id: 6,
+      name: "Habitación individual en el centro",
+      image: "https://via.placeholder.com/150",
+      location: "Segovia",
+      price: "$50 por noche",
+    },
+    {
+      id: 7,
+      name: "Habitación doble cerca de la playa",
+      image: "https://via.placeholder.com/150",
+      location: "Toledo",
+      price: "$80 por noche",
+    },
+    {
+      id: 8,
+      name: "Apartamento de lujo en el centro histórico",
+      image: "https://via.placeholder.com/150",
+      location: "Córdoba",
+      price: "$150 por noche",
+    },
+    {
+      id: 9,
+      name: "Habitación triple con vistas a la montaña",
+      image: "https://via.placeholder.com/150",
+      location: "Cuenca",
+      price: "$100 por noche",
+    },
+    {
+      id: 10,
+      name: "Casa en la playa con piscina",
+      image: "https://via.placeholder.com/150",
+      location: "Granada",
+      price: "$200 por noche",
+    },
+    {
+      id: 11,
+      name: "Habitación individual en el centro",
+      image: "https://via.placeholder.com/150",
+      location: "Ávila",
+      price: "$50 por noche",
+    },
+    {
+      id: 12,
+      name: "Habitación doble cerca de la playa",
+      image: "https://via.placeholder.com/150",
+      location: "Salamanca",
+      price: "$80 por noche",
+    },
+    {
+      id: 13,
+      name: "Apartamento de lujo en el centro histórico",
+      image: "https://via.placeholder.com/150",
+      location: "Burgos",
+      price: "$150 por noche",
+    },
+    {
+      id: 14,
+      name: "Habitación triple con vistas a la montaña",
+      image: "https://via.placeholder.com/150",
+      location: "Bilbao",
+      price: "$100 por noche",
+    },
+    {
+      id: 15,
+      name: "Casa en la playa con piscina",
+      image: "https://via.placeholder.com/150",
+      location: "Santander",
       price: "$200 por noche",
     },
   ]);
-  const [filterData, setFilterData] = useState(data);
+  const [dataPuja] = useState([
+    {
+      id: 1,
+      name: "PRUEBA PUJA",
+      image: "https://via.placeholder.com/150",
+      location: "A coruña",
+      price: "$50 por noche",
+    },
+    {
+      id: 2,
+      name: "Habitación doble cerca de la playa",
+      image: "https://via.placeholder.com/150",
+      location: "Barcelona",
+      price: "$80 por noche",
+    },
+    {
+      id: 3,
+      name: "Apartamento de lujo en el centro histórico",
+      image: "https://via.placeholder.com/150",
+      location: "Sevilla",
+      price: "$150 por noche",
+    },
+    {
+      id: 4,
+      name: "Habitación triple con vistas a la montaña",
+      image: "https://via.placeholder.com/150",
+      location: "Leon",
+      price: "$100 por noche",
+    },
+    {
+      id: 5,
+      name: "Casa en la playa con piscina",
+      image: "https://via.placeholder.com/150",
+      location: "Valencia",
+      price: "$200 por noche",
+    },
+    {
+      id: 6,
+      name: "Habitación individual en el centro",
+      image: "https://via.placeholder.com/150",
+      location: "Segovia",
+      price: "$50 por noche",
+    },
+    {
+      id: 7,
+      name: "Habitación doble cerca de la playa",
+      image: "https://via.placeholder.com/150",
+      location: "Toledo",
+      price: "$80 por noche",
+    },
+    {
+      id: 8,
+      name: "Apartamento de lujo en el centro histórico",
+      image: "https://via.placeholder.com/150",
+      location: "Córdoba",
+      price: "$150 por noche",
+    },
+    {
+      id: 9,
+      name: "Habitación triple con vistas a la montaña",
+      image: "https://via.placeholder.com/150",
+      location: "Cuenca",
+      price: "$100 por noche",
+    },
+    {
+      id: 10,
+      name: "Casa en la playa con piscina",
+      image: "https://via.placeholder.com/150",
+      location: "Granada",
+      price: "$200 por noche",
+    },
+    {
+      id: 11,
+      name: "Habitación individual en el centro",
+      image: "https://via.placeholder.com/150",
+      location: "Ávila",
+      price: "$50 por noche",
+    },
+    {
+      id: 12,
+      name: "Habitación doble cerca de la playa",
+      image: "https://via.placeholder.com/150",
+      location: "Salamanca",
+      price: "$80 por noche",
+    },
+    {
+      id: 13,
+      name: "Apartamento de lujo en el centro histórico",
+      image: "https://via.placeholder.com/150",
+      location: "Burgos",
+      price: "$150 por noche",
+    },
+    {
+      id: 14,
+      name: "Habitación triple con vistas a la montaña",
+      image: "https://via.placeholder.com/150",
+      location: "Bilbao",
+      price: "$100 por noche",
+    },
+    {
+      id: 15,
+      name: "Casa en la playa con piscina",
+      image: "https://via.placeholder.com/150",
+      location: "Santander",
+      price: "$200 por noche",
+    },
+  ]);
+  const [filterData, setFilterData] = useState(dataAlquiler);
   const [searchText, setSearchText] = useState("");
+  const [selectedButton, setSelectedButton] = useState("Alquiler");
+  const [scrollViewHidden, setScrollViewHidden] = useState(false);
 
   const searchFilterFunction = (text) => {
-    if (text) {
-      const newData = data.filter((item) => {
-        const itemData = item.name.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilterData(newData);
-      setSearchText(text);
+    if (selectedButton === "Pujas") {
+      if (text) {
+        const newData = dataPuja.filter((item) => {
+          const itemData = item.location.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+        setFilterData(newData);
+        setSearchText(text);
+      } else {
+        setFilterData(dataPuja);
+        setSearchText("");
+      }
     } else {
-      setFilterData(data);
-      setSearchText("");
+      if (text) {
+        const newData = dataAlquiler.filter((item) => {
+          const itemData = item.location.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+        setFilterData(newData);
+        setSearchText(text);
+      } else {
+        setFilterData(dataAlquiler);
+        setSearchText("");
+      }
     }
+  };
+
+  const handleButtonPress = (button) => {
+    setSelectedButton(button);
+    if (button === "Pujas") {
+      setScrollViewHidden(true);
+      setFilterData(dataPuja);
+    } else {
+      setScrollViewHidden(false);
+      setFilterData(dataAlquiler);
+    }
+    setSearchText("");
   };
 
   return (
     <View style={styles.container}>
+      <View style={{ alignItems: "center", marginBottom: -20, marginTop: 10 }}>
+        <Image
+          source={require("E:\GitHub\TFG-Coliving\kwarto-mobile-app\src\assets/logoinsideapp.png")}
+          style={{ width: 100, height: 100 }}
+          resizeMode="contain"
+          alt="My Image"
+        />
+      </View>
       <TextInput
         style={styles.searchInput}
-        placeholder="Buscar habitaciones"
+        placeholder="Escribe un destino"
         value={searchText}
         onChangeText={(text) => searchFilterFunction(text)}
       />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            selectedButton === "Alquiler" && styles.selectedButton,
+          ]}
+          onPress={() => handleButtonPress("Alquiler")}
+        >
+          <Text>Alquiler</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            selectedButton === "Pujas" && styles.selectedButton,
+          ]}
+          onPress={() => handleButtonPress("Pujas")}
+        >
+          <Text>Pujas</Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView>
-        <Text style={styles.textRooms}>Habitaciones disponibles</Text>
-        {filterData.map((item, index) => {
+        {filterData.map((item) => {
           return (
             <TouchableOpacity
               key={item.id}
-              style={styles.itemContainer}
-              onPress={() =>
-                navigation.navigate("Details", {
-                  id: item.id,
-                  name: item.name,
-                  image: item.image,
-                  description: item.description,
-                  price: item.price,
-                })
-              }
+              style={styles.card}
+              onPress={() => navigation.navigate("Detalle", { item })}
             >
-              <Image source={{ uri: item.image }} style={styles.image} />
-              <View>
-                <Text style={styles.textName}>{item.name}</Text>
-                <Text style={styles.textDescription}>{item.description}</Text>
-                <Text style={styles.textPrice}>{item.price}</Text>
+              <Image source={{ uri: item.image }} style={styles.cardImage} />
+              <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{item.name}</Text>
+                <Text style={styles.cardLocastion}>{item.location}</Text>
+                <Text style={styles.cardPrice}>{item.price}</Text>
               </View>
             </TouchableOpacity>
           );
@@ -105,49 +330,68 @@ const HomeScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#ffffff",
+    paddingHorizontal: 10,
   },
   searchInput: {
     height: 40,
-    borderColor: "#ccc",
     borderWidth: 1,
-    borderRadius: 20,
-    paddingLeft: 15,
-    margin: 10,
+    borderColor: "#8667f1",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginTop: 50,
+    marginBottom: 10,
   },
-  textRooms: {
-    fontSize: 20,
-    textAlign: "left",
-    marginLeft: 10,
-    marginTop: 10,
-  },
-  itemContainer: {
+  buttonContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderBottomColor: "#ccc",
-    borderBottomWidth: 1,
+    justifyContent: "center",
+    marginBottom: 10,
   },
-  image: {
+  button: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#8667f1",
+    borderRadius: 5,
+    marginRight: 10,
+    color: "white",
+  },
+  selectedButton: {
+    backgroundColor: "#8667f1",
+  },
+  card: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#8667f1",
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
+  },
+  cardImage: {
     width: 80,
     height: 80,
     marginRight: 10,
   },
-  textName: {
-    fontSize: 16,
-    fontWeight: "bold",
+  cardContent: {
+    flex: 1,
   },
-  textDescription: {
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  cardLocastion: {
     fontSize: 14,
-    marginTop: 5,
-    color: "#444",
+    marginBottom: 5,
   },
-  textPrice: {
+  cardPrice: {
     fontSize: 16,
     fontWeight: "bold",
-    marginTop: 5,
+    color: "#8667f1",
   },
 });
 

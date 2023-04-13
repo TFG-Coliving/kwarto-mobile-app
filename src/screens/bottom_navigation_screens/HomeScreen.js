@@ -277,7 +277,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={{ alignItems: "center", marginBottom: -60, marginTop: 10 }}>
         <Image
-          source={require("../assets/logoinsideapp.png")}
+          source={require("../../assets/logoinsideapp.png")}
           style={{ width: 100, height: 100 }}
           resizeMode="contain"
           alt="My Image"

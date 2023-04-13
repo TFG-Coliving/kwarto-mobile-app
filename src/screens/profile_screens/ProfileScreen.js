@@ -1,18 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
+import useAuth from "../../redux/modules/auth/useAuth";
+import {getCurrentUser} from "../../redux/modules/users/usersModule";
+import {useSelector, useDispatch} from "react-redux";
+import Users from "../../redux/modules/users/users";
+
 
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
+  // esta parte se queda en el profile, para poder recoger el user
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.authentication.token);
+  useEffect(() => {
+    dispatch(getCurrentUser(token));
+  }, [dispatch, token]);
+  // -------------------------------------------------------------------
+  const user = Users();
   return (
       <View style={styles.container}>
         <View style={styles.profile}>
-          <Image source={require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
+          <Image source={{uri: user.getProfilePicture()}} style={styles.profilePicture} />
           <View style={styles.profileDetails}>
-            <Text style={styles.name}>John Doe</Text>
+            <Text style={styles.name}>{user.getFirstName()} {user.getLastName()}</Text>
             <View style={styles.score}>
               <Ionicons name='md-star' size={24} color='#f7d825' />
               <Ionicons name='md-star' size={24} color='#f7d825' />

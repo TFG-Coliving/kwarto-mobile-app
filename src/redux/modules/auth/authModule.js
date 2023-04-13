@@ -12,6 +12,7 @@ export const login = (email="", password="") => dispatch => {
   .then(response => {
     if (response.data.token) {
       dispatch({ type: LOGIN_SUCCESS, payload: response.data.token });
+      console.log("TOKEN: " + response.data.token)
     } else {
       dispatch({ type: LOGIN_FAILURE, payload: response.data });
     }

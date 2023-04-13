@@ -12,13 +12,6 @@ import Users from "../../redux/modules/users/users";
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
-
-  // esta parte se ha de poner en el login para pdoer logear
-  const { setEmail, setPassword, handleLogin } = useAuth();
-  setEmail("lorien@example.com");
-  setPassword("1234");
-  handleLogin({preventDefault: () => {}});
-  // -------------------------------------------------------------------
   // esta parte se queda en el profile, para poder recoger el user
   const dispatch = useDispatch();
   const token = useSelector(state => state.authentication.token);

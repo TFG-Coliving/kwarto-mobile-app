@@ -48,9 +48,8 @@ const LoginScreen = ({navigation}) => {
                     label={'Email'}
                     icon={ <MaterialIcons name={'alternate-email'} size={24} color={'#333'} style={{marginRight: 5}}/>}
                     keyboardType="email-address"
-                    value={email}
                     onChangeText={setEmail}
-
+                    value={email}
                 />
                 <InputFields
                     label={'Password'}
@@ -58,8 +57,8 @@ const LoginScreen = ({navigation}) => {
                     inputType='password'
                     fieldButtonLabel={"Forgot?"}
                     fieldButtonFunction={()=>{}}
-                    value={password}
                     onChangeText={setPassword}
+                    value={password}
                 />
 
                 {/*BOTON LOGIN*/}
@@ -67,6 +66,7 @@ const LoginScreen = ({navigation}) => {
                 <CustomButton
                     label={'Login'}
                     onPress={() => {
+                        console.log(email)
                         handleLogin({ email, password, preventDefault: () => {} })
                     }}
                 />

@@ -309,24 +309,26 @@ const HomeScreen = () => {
           <Text>Pujas</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        {filterData.map((item) => {
-          return (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.card}
-              onPress={() => navigation.navigate("Detalle", { item })}
-            >
-              <Image source={{ uri: item.image }} style={styles.cardImage} />
-              <View style={styles.cardContent}>
-                <Text style={styles.cardTitle}>{item.name}</Text>
-                <Text style={styles.cardLocastion}>{item.location}</Text>
-                <Text style={styles.cardPrice}>{item.price}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
+      {/*{!scrollViewHidden && (*/}
+        <ScrollView>
+          {filterData.map((item) => {
+            return (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.card}
+                onPress={() => navigation.navigate("Detalle", { item })}
+              >
+                <Image source={{ uri: item.image }} style={styles.cardImage} />
+                <View style={styles.cardContent}>
+                  <Text style={styles.cardTitle}>{item.name}</Text>
+                  <Text style={styles.cardLocastion}>{item.location}</Text>
+                  <Text style={styles.cardPrice}>{item.price}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      {/*)}*/}
     </View>
   );
 };

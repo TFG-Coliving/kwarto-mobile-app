@@ -77,7 +77,7 @@ function MyTabs() {
 
 export default function BottomNavigation() {
     return (
-        <NavigationContainer>
+        <NavigationContainer independent={true}>
             <MyTabs/>
         </NavigationContainer>
     );

@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import store from "./src/redux/store/store";
 import {NavigationContainer} from "@react-navigation/native";
 import AuthStack from "./src/navigation/AuthStack";
+import BottomNavigation from "./src/navigation/BottomNavigation";
 
 export default function App() {
 
@@ -11,7 +12,7 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
             <AuthStack/>
-            </NavigationContainer>
+        </NavigationContainer>
       </Provider>
   );
 }

@@ -68,6 +68,7 @@ const LoginScreen = ({navigation}) => {
                     onPress={() => {
                         console.log(email)
                         handleLogin({ email, password, preventDefault: () => {} })
+                        navigation.navigate('Home')
                     }}
                 />
 

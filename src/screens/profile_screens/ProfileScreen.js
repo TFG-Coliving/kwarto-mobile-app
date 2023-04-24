@@ -3,35 +3,48 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
-import useAuth from "../../redux/modules/auth/useAuth";
-import {getCurrentUser} from "../../redux/modules/users/usersModule";
+import {getCurrentUser} from "../../redux/actions/users/usersModule";
 import {useSelector, useDispatch} from "react-redux";
-import Users from "../../redux/modules/users/users";
+import Users from "../../redux/actions/users/users";
 
 
+function calculateStars(rating) {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      stars.push(<Ionicons name='md-star' size={24} color='#f7d825' />);
+    }
+    else if (!Number.isInteger(rating) ){
+      stars.push(<Ionicons name='md-star-half' size={24} color='#f7d825' />);
+    }
+    else {
+      stars.push(<Ionicons name='md-star-outline' size={24} color='#f7d825' />);
+    }
+  }
+  return stars;
+}
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
-  // esta parte se queda en el profile, para poder recoger el user
+  /* esta parte se queda en el profile, para poder recoger el user
+  if (
   const dispatch = useDispatch();
   const token = useSelector(state => state.authentication.token);
   useEffect(() => {
     dispatch(getCurrentUser(token));
   }, [dispatch, token]);
   // -------------------------------------------------------------------
+
   const user = Users();
+   */
   return (
       <View style={styles.container}>
         <View style={styles.profile}>
-          <Image source={{uri: user.getProfilePicture()}} style={styles.profilePicture} />
+          <Image source={/*{{uri: user.getProfilePicture()}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
           <View style={styles.profileDetails}>
-            <Text style={styles.name}>{user.getFirstName()} {user.getLastName()}</Text>
+            <Text style={styles.name}>{/*user.getFirstName()*/}{" "}{/*user.getLastName()*/}{"EL nano "}</Text>
             <View style={styles.score}>
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star-half' size={24} color='#f7d825' />
+              {calculateStars(/*user.getScore()*/4.5)}
             </View>
           </View>
         </View>

@@ -1,7 +1,7 @@
 import {
   REQUEST_USER_FAILURE,
   REQUEST_USER_SUCCESS
-} from "../modules/users/usersConstants";
+} from "../actions/users/usersConstants";
 
 const initialState = {
   user: null,

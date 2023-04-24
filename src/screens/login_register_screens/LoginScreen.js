@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView, Image, TextInput, TouchableOpacity,ScrollView}
 import {Ionicons, MaterialIcons} from "@expo/vector-icons";
 import CustomButton from "../../components/buttons/CustomButton";
 import InputFields from "../../components/fields/InputFields";
-import useAuth from "../../redux/modules/auth/useAuth";
+import useAuth from "../../redux/actions/auth/useAuth";
 
 
 const LoginScreen = ({navigation}) => {

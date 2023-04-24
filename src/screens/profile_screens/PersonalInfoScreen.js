@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import EditFieldProfile from "../../components/fields/EditFieldProfile";
 
-const PersonalInfoScreen = ({ navigation }) => {
+const PersonalInfoScreen = () => {
+  const [fullName, setFullName] = useState('El nano'); // user.getFirstName() + " " + user.getLastName();
+  const [email, setEmail] = useState('elnano@example.com'); // user.getEmail();
+  const [phoneNumber, setPhoneNumber] = useState('123-456-7890'); // user.getPhone();
+  const [address, setAddress] = useState('123 Main St.'); // user.getAddress();
+
   return (
       <View style={styles.container}>
         <Text style={styles.heading}>Personal Information</Text>
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input} placeholder="Full Name" defaultValue={"Jhon Doe"} />
-          <TextInput style={styles.input} placeholder="Email" />
-          <TextInput style={styles.input} placeholder="Phone Number" />
-          <TextInput style={styles.input} placeholder="Address" />
+          <EditFieldProfile label="Full Name" value={fullName} onChange={setFullName} />
+          <EditFieldProfile label="Email" value={email} onChange={setEmail} />
+          <EditFieldProfile label="Phone Number" value={phoneNumber} onChange={setPhoneNumber} />
+          <EditFieldProfile label="Address" value={address} onChange={setAddress} />
         </View>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Save Changes</Text>
@@ -17,12 +23,12 @@ const PersonalInfoScreen = ({ navigation }) => {
       </View>
   );
 }
-export default PersonalInfoScreen;
 
+export default PersonalInfoScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
     paddingVertical: 40,
   },
@@ -32,26 +38,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputContainer: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,
   },
-  input: {
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
   button: {
     backgroundColor: '#8667f1',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 18,
+    textAlign: 'center',
     fontWeight: 'bold',
   },
 });
+

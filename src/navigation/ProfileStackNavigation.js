@@ -10,9 +10,9 @@ import NotificationsScreen
   from "../screens/profile_screens/NotificationsScreen";
 import SecurityScreen from "../screens/profile_screens/SecurityScreen";
 import HelpScreen from "../screens/profile_screens/HelpScreen";
-import LogOutScreen from "../screens/profile_screens/LogOutScreen";
 import {NavigationContainer} from "@react-navigation/native";
 import ProfileScreen from "../screens/profile_screens/ProfileScreen";
+import LoginScreen from "../screens/login_register_screens/LoginScreen";
 
 
 
@@ -26,7 +26,8 @@ function ProfileStack() {
             name="ProfileScreen"
             component={ProfileScreen}
             options={{
-              headerTitle:"Profile"
+              headerTitle:"Profile",
+              headerLeft: null
             }}
         />
         <ProfileStackNavigation.Screen
@@ -87,7 +88,7 @@ function ProfileStack() {
         />
         <ProfileStackNavigation.Screen
             name="LogOut"
-            component={LogOutScreen}
+            component={LoginScreen}
             options={{
               headerTitle:"Log Out",
               headerBackTitle: "Profile"

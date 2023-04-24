@@ -1,23 +1,31 @@
-import React from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import React from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsReadOnly, setCardInfo } from '../../redux/actions/profile/paymentActions';
+import CreditCardComponent from "../../components/fields/CreditCardComponent";
 
-const PaymentInfoScreen = ({navigation}) => {
+const PaymentScreen = () => {
+
+
   return (
-      <View>
-        <Text
-            style={styles.text}
-        >Payment Info</Text>
+      <View style={styles.container}>
+        <CreditCardComponent />
       </View>
-
   );
 }
 
-export default PaymentInfoScreen;
-
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 30,
-    textAlign: 'center',
-    marginTop: "20%"
+  container: {
+    flex: 1,
+    paddingVertical: 10,
+    backgroundColor: '#f6f6f6',
   }
 });
+
+export default PaymentScreen;

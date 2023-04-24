@@ -6,9 +6,11 @@ const Users = () => {
   const user = useSelector(state => state.users);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
+  if (user === null) {
+    useEffect(() => {
+      dispatch(getCurrentUser());
+    }, [dispatch]);
+  }
 
   const getUser = () => user;
   const getFirstName = () => user.firstname;

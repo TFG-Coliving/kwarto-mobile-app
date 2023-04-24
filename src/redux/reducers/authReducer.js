@@ -1,5 +1,5 @@
 
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../modules/auth/authConstants';
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/auth/authConstants';
 
 const initialState = {
   token: null,

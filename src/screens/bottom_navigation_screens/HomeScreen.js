@@ -9,10 +9,6 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import CardAlquiler from "../card_screens/CardAlquiler";
-import CardPuja from "../card_screens/CardPuja";
-import { NavigationContainer } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -235,27 +231,14 @@ const HomeScreen = () => {
   const [selectedButton, setSelectedButton] = useState("Alquiler");
   const [scrollViewHidden, setScrollViewHidden] = useState(false);
 
-  const Stack = createStackNavigator();
-
-  const App = () => {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Pantalla1" component={Pantalla1} />
-          <Stack.Screen name="Pantalla2" component={Pantalla2} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  };
-
   const handleCardAlquilerPress = (cardData) => {
     // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
-    navigation.navigate(CardAlquiler, { cardData });
+    navigation.navigate("CardAlquiler", { cardData });
   };
 
   const handleCardPujaPress = (cardData) => {
     // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
-    navigation.navigate(CardPuja, { cardData });
+    navigation.navigate("CardPuja", { cardData });
   };
 
   const searchFilterFunction = (text) => {

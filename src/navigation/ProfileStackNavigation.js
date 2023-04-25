@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import SettingsScreen from "../screens/profile_screens/SettingsScreen";
 import {createStackNavigator} from "@react-navigation/stack";
 import PersonalInfoScreen from "../screens/profile_screens/PersonalInfoScreen";

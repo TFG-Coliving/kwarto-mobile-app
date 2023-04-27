@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
+import PujaAdCardComponent from "../../components/cards/pujaAdCardComponent";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -340,18 +341,13 @@ const HomeScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {filterData.map((item) => {
             return (
-              <TouchableOpacity
-                key={item.id}
-                style={styles.cardPuja}
-                onPress={() => handleCardPujaPress(item)}
-              >
-                <Image source={{ uri: item.image }} style={styles.cardImagePuja} />
-                <View style={styles.cardContentPuja}>
-                  <Text style={styles.cardTitlePuja}>{item.name}</Text>
-                  <Text style={styles.cardLocastionPuja}>{item.location}</Text>
-                  <Text style={styles.cardPricePuja}>{item.price}</Text>
-                </View>
-              </TouchableOpacity>
+              <PujaAdCardComponent onPress={() => handleCardPujaPress(item)}
+                                   item={item}
+                                   name={item.name}
+                                   location={item.location}
+                                   price={item.price}
+                                   image={item.image}
+              />
             );
           })}
         </ScrollView>
@@ -368,8 +364,6 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     height: 50,
-    //borderWidth: 2,
-    //borderColor: "#8667f1",
     borderRadius: 50,
     paddingHorizontal: 10,
     marginTop: 50,
@@ -392,49 +386,6 @@ const styles = StyleSheet.create({
   },
   selectedButton: {
     backgroundColor: "#8667f1",
-  },
-  cardPuja: {
-    flexDirection: "row",
-    //borderWidth: 2,
-    //borderColor: "#525561",
-    borderRadius: 5,
-    marginBottom: 20,
-    padding: 10,
-    backgroundColor: "#e1e7ff",
-    //height: 200,
-  },
-  cardImagePuja: {
-    width: "50%",
-    height: 150,
-    //marginTop: "auto",
-    marginBottom: "auto",
-    marginRight: 20,
-    borderRadius: 5,
-  },
-  cardContentPuja: {
-    flex: 1,
-  },
-  cardTitlePuja: {
-    fontSize: 18,
-    fontWeight: "bold",
-    //marginBottom: "auto",
-    textAlign: "center",
-    //height: 69,
-    maxHeight: 69,
-  },
-  cardLocastionPuja: {
-    fontSize: 17,
-    marginTop: "auto",
-    marginBottom: "auto",
-    textAlign: "center",
-  },
-  cardPricePuja: {
-    fontSize: 40,
-    fontWeight: "bold",
-    color: "#8667f1",
-    //marginBottom: 50,
-    //marginTop: "auto",
-    textAlign: "center",
   },
 });
 

@@ -233,7 +233,7 @@ const HomeScreen = () => {
 
   const handleCardAlquilerPress = (cardData) => {
     // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
-    navigation.navigate("CardAlquiler", { cardData });
+    navigation.navigate("CardAlquiler");
   };
 
   const handleCardPujaPress = (cardData) => {

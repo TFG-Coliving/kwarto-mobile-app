@@ -24,7 +24,7 @@ function HomeStack() {
           component={CardAlquiler}
           options={{
             headerTitle:"Card Alquiler",
-            headerBackTitle: "CardAlquiler"
+            headerBackTitle: "Home"
           }}
         />
         <HomeStackNavigation.Screen
@@ -32,7 +32,7 @@ function HomeStack() {
             component={CardPuja}
             options={{
               headerTitle:"Card Puja",
-              headerBackTitle: "CardPuja"
+              headerBackTitle: "Home"
             }}
         />
       </HomeStackNavigation.Navigator>

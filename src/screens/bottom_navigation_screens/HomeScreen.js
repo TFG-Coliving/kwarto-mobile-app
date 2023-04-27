@@ -9,6 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -231,11 +232,12 @@ const HomeScreen = () => {
   const [selectedButton, setSelectedButton] = useState("Alquiler");
   const [scrollViewHidden, setScrollViewHidden] = useState(false);
 
+
+
   const handleCardAlquilerPress = (cardData) => {
     // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
-    navigation.navigate("CardAlquiler");
-  };
-
+    navigation.navigate("CardAlquiler", { cardData });
+  }
   const handleCardPujaPress = (cardData) => {
     // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
     navigation.navigate("CardPuja", { cardData });
@@ -323,20 +325,13 @@ const HomeScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {filterData.map((item) => {
             return (
-              <TouchableOpacity
-                key={item.id}
-                style={styles.cardAlquiler}
-                onPress={() => handleCardAlquilerPress(item)}
-              >
-                <Image source={{ uri: item.image }} style={styles.cardImage} />
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitleAlquiler}>{item.name}</Text>
-                  <Text style={styles.cardLocastionAlquiler}>
-                    {item.location}
-                  </Text>
-                  <Text style={styles.cardPrice}>{item.price}</Text>
-                </View>
-              </TouchableOpacity>
+              <RentAdCardComponent onPress={() => handleCardAlquilerPress(item)}
+                                   item={item}
+                                   name={item.name}
+                                   location={item.location}
+                                   price={item.price}
+                                   image={item.image}
+              />
             );
           })}
         </ScrollView>
@@ -350,11 +345,11 @@ const HomeScreen = () => {
                 style={styles.cardPuja}
                 onPress={() => handleCardPujaPress(item)}
               >
-                <Image source={{ uri: item.image }} style={styles.cardImage} />
-                <View style={styles.cardContent}>
+                <Image source={{ uri: item.image }} style={styles.cardImagePuja} />
+                <View style={styles.cardContentPuja}>
                   <Text style={styles.cardTitlePuja}>{item.name}</Text>
                   <Text style={styles.cardLocastionPuja}>{item.location}</Text>
-                  <Text style={styles.cardPrice}>{item.price}</Text>
+                  <Text style={styles.cardPricePuja}>{item.price}</Text>
                 </View>
               </TouchableOpacity>
             );
@@ -398,15 +393,6 @@ const styles = StyleSheet.create({
   selectedButton: {
     backgroundColor: "#8667f1",
   },
-  cardAlquiler: {
-    flexDirection: "row",
-    //borderWidth: 2,
-    //borderColor: "#8667f1",
-    borderRadius: 5,
-    marginBottom: 20,
-    padding: 10,
-    backgroundColor: "#FFFFFF",
-  },
   cardPuja: {
     flexDirection: "row",
     //borderWidth: 2,
@@ -417,7 +403,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e1e7ff",
     //height: 200,
   },
-  cardImage: {
+  cardImagePuja: {
     width: "50%",
     height: 150,
     //marginTop: "auto",
@@ -425,22 +411,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderRadius: 5,
   },
-  cardContent: {
+  cardContentPuja: {
     flex: 1,
-  },
-  cardTitleAlquiler: {
-    fontSize: 18,
-    fontWeight: "bold",
-    //marginBottom: "auto",
-    textAlign: "center",
-    //height: 69,
-    maxHeight: 69,
-  },
-  cardLocastionAlquiler: {
-    fontSize: 17,
-    marginTop: "auto",
-    marginBottom: "auto",
-    textAlign: "center",
   },
   cardTitlePuja: {
     fontSize: 18,
@@ -456,7 +428,7 @@ const styles = StyleSheet.create({
     marginBottom: "auto",
     textAlign: "center",
   },
-  cardPrice: {
+  cardPricePuja: {
     fontSize: 40,
     fontWeight: "bold",
     color: "#8667f1",

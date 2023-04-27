@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  TextInput,
+} from "react-native";
 
 const CardAlquiler = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params

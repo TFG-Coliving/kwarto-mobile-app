@@ -46,14 +46,6 @@ function ProfileStack() {
             }}
         />
         <ProfileStackNavigation.Screen
-            name="Settings"
-            component={SettingsScreen}
-            options={{
-              headerTitle:"Settings",
-              headerBackTitle: "Profile"
-            }}
-        />
-        <ProfileStackNavigation.Screen
             name="Favourites"
             component={FavouritesScreen}
             options={{

@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 
 const EditFieldProfile = ({ label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editableValue, setEditableValue] = useState(value);
+  const [editableValue, setEditableValue] = useState(value || '');
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -30,9 +30,10 @@ const EditFieldProfile = ({ label, value, onChange }) => {
             <View style={styles.editableContainer}>
               <TextInput
                   style={styles.editableInput}
-                  defaultValue={editableValue.toString()}
+                  value={editableValue}
                   onChangeText={handleValueChange}
                   autoFocus={true}
+                  key={label}
               />
               <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
                 <Text style={styles.saveButtonText}>Save</Text>
@@ -43,7 +44,7 @@ const EditFieldProfile = ({ label, value, onChange }) => {
             </View>
         ) : (
             <TouchableOpacity style={styles.readOnlyContainer} onPress={handleEdit}>
-              <Text style={styles.readOnly}>{editableValue.toString()}</Text>
+              <Text style={styles.readOnly}>{editableValue}</Text>
               <Text style={styles.editButton}>Edit</Text>
             </TouchableOpacity>
         )}

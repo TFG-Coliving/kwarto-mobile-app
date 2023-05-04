@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
@@ -44,32 +44,36 @@ export default function ProfileScreen( ) {
     */
   }
   return (
-      <View style={styles.container}>
-        <View style={styles.profile}>
-          <Image source={/*{{uri: user.getProfilePicture()}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
-          <View style={styles.profileDetails}>
-            <Text style={styles.name}>{user?.firstname}{" "}{user?.lastname}</Text>
-            <View style={styles.score}>
-              {calculateStars(/*user.getScore()*/4.5)}
+      <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} style={styles.scrollView}>
+        <View style={styles.container}>
+          <View style={styles.profile}>
+            <Image source={/*{{uri: user.getProfilePicture()}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
+            <View style={styles.profileDetails}>
+              <Text style={styles.name}>{/*user.getFirstName()*/}{" "}{/*user.getLastName()*/}{"EL nano "}</Text>
+              <View style={styles.score}>
+                {calculateStars(/*user.getScore()*/4.5)}
+              </View>
             </View>
           </View>
+          <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
+          <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
+          <MenuButton iconType={'settings'} text={"Settings"} onPress={() => navigation.navigate("Settings")}/>
+          <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>
+          <MenuButton iconType={'notifications'} text={"Notifications"} onPress={() => navigation.navigate("Notifications")}/>
+          <MenuButton iconType={'lock-closed'} text={"Security"} onPress={() => navigation.navigate("Security")}/>
+          <MenuButton iconType={'help'} text={"Help"} onPress={() => navigation.navigate("Help")}/>
+          <MenuButton iconType={'log-out'} text={"Log Out"} onPress={() => navigation.navigate("LogOut")}/>
         </View>
-        <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
-        <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
-        <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>
-        <MenuButton iconType={'notifications'} text={"Notifications"} onPress={() => navigation.navigate("Notifications")}/>
-        <MenuButton iconType={'lock-closed'} text={"Security"} onPress={() => navigation.navigate("Security")}/>
-        <MenuButton iconType={'help'} text={"Help"} onPress={() => navigation.navigate("Help")}/>
-        <MenuButton iconType={'log-out'} text={"Log Out"} onPress={() => navigation.navigate("LogOut")}/>
-
-      </View>
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: '#ffffff',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     padding: 16,
   },
   profile: {

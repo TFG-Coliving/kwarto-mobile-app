@@ -1,28 +1,54 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import EditFieldProfile from "../../components/fields/EditFieldProfile";
+import {useDispatch, useSelector} from "react-redux";
+import {setUserField} from "../../redux/actions/users/usersModule";
 
 const PersonalInfoScreen = () => {
-  const [fullName, setFullName] = useState('El nano'); // user.getFirstName() + " " + user.getLastName();
-  const [email, setEmail] = useState('elnano@example.com'); // user.getEmail();
-  const [phoneNumber, setPhoneNumber] = useState('123-456-7890'); // user.getPhone();
-  const [address, setAddress] = useState('123 Main St.'); // user.getAddress();
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.users.user);
 
+  function handleFieldChange(fieldName, newValue) {
+    dispatch(setUserField({ field: fieldName, value: newValue }));
+  }
+
+
+  console.log(user);
   return (
       <View style={styles.container}>
         <Text style={styles.heading}>Personal Information</Text>
         <View style={styles.inputContainer}>
-          <EditFieldProfile label="Full Name" value={fullName} onChange={setFullName} />
-          <EditFieldProfile label="Email" value={email} onChange={setEmail} />
-          <EditFieldProfile label="Phone Number" value={phoneNumber} onChange={setPhoneNumber} />
-          <EditFieldProfile label="Address" value={address} onChange={setAddress} />
+          <EditFieldProfile
+              label="First Name"
+              value={user?.firstname}
+              onChange={(value) => handleFieldChange('firstname', value)}
+              key="firstName"
+          />
+          <EditFieldProfile
+              label="Last Name"
+              value={user?.lastname}
+              onChange={(value) => handleFieldChange('lastname', value)}
+              key="lastName"
+          />
+          <EditFieldProfile
+              label="Email"
+              value={user?.email}
+              onChange={(value) => handleFieldChange('email', value)}
+              key="email"
+          />
+          <EditFieldProfile
+              label="Phone Number"
+              value={user?.phone}
+              onChange={(value) => handleFieldChange('phone', value)}
+              key="phoneNumber"
+          />
         </View>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Save Changes</Text>
         </TouchableOpacity>
       </View>
   );
-}
+};
 
 export default PersonalInfoScreen;
 const styles = StyleSheet.create({

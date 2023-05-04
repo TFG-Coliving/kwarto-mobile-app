@@ -1,11 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
-import {getCurrentUser} from "../../redux/actions/users/usersModule";
 import {useSelector, useDispatch} from "react-redux";
-import Users from "../../redux/actions/users/users";
 
 
 function calculateStars(rating) {
@@ -37,12 +35,20 @@ export default function ProfileScreen( ) {
 
   const user = Users();
    */
+
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.users.user);
+  if (user === null) {
+    /*let token = useSelector(state => state.authentication.token);
+    dispatch(getCurrentUser(token));
+    */
+  }
   return (
       <View style={styles.container}>
         <View style={styles.profile}>
           <Image source={/*{{uri: user.getProfilePicture()}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
           <View style={styles.profileDetails}>
-            <Text style={styles.name}>{/*user.getFirstName()*/}{" "}{/*user.getLastName()*/}{"EL nano "}</Text>
+            <Text style={styles.name}>{user?.firstname}{" "}{user?.lastname}</Text>
             <View style={styles.score}>
               {calculateStars(/*user.getScore()*/4.5)}
             </View>
@@ -50,7 +56,6 @@ export default function ProfileScreen( ) {
         </View>
         <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
         <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
-        <MenuButton iconType={'settings'} text={"Settings"} onPress={() => navigation.navigate("Settings")}/>
         <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>
         <MenuButton iconType={'notifications'} text={"Notifications"} onPress={() => navigation.navigate("Notifications")}/>
         <MenuButton iconType={'lock-closed'} text={"Security"} onPress={() => navigation.navigate("Security")}/>

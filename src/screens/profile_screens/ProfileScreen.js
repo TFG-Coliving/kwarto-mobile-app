@@ -24,20 +24,10 @@ function calculateStars(rating) {
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
-  /* esta parte se queda en el profile, para poder recoger el user
-  if (
-  const dispatch = useDispatch();
-  const token = useSelector(state => state.authentication.token);
-  useEffect(() => {
-    dispatch(getCurrentUser(token));
-  }, [dispatch, token]);
-  // -------------------------------------------------------------------
-
-  const user = Users();
-   */
-
   const dispatch = useDispatch();
   const user = useSelector(state => state.users.user);
+
+  // if we don't have a user stored in redux, we need to fetch it from the server
   if (user === null) {
     /*let token = useSelector(state => state.authentication.token);
     dispatch(getCurrentUser(token));
@@ -47,17 +37,16 @@ export default function ProfileScreen( ) {
       <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.profile}>
-            <Image source={/*{{uri: user.getProfilePicture()}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
+            <Image source={/*{{uri: user?.profilepicture.uri}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
             <View style={styles.profileDetails}>
-              <Text style={styles.name}>{/*user.getFirstName()*/}{" "}{/*user.getLastName()*/}{"EL nano "}</Text>
+              <Text style={styles.name}>{user?.firstname}{" "}{user?.lastname}</Text>
               <View style={styles.score}>
-                {calculateStars(/*user.getScore()*/4.5)}
+                {calculateStars(/*user?.score*/4.5)}
               </View>
             </View>
           </View>
           <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
           <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
-          <MenuButton iconType={'settings'} text={"Settings"} onPress={() => navigation.navigate("Settings")}/>
           <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>
           <MenuButton iconType={'notifications'} text={"Notifications"} onPress={() => navigation.navigate("Notifications")}/>
           <MenuButton iconType={'lock-closed'} text={"Security"} onPress={() => navigation.navigate("Security")}/>

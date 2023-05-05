@@ -25,6 +25,7 @@ const usersReducer = (state = initialState, action) => {
           profilePicture:{
             uri: action.payload.profilePicture.uri
           },
+          favorites: [...action.payload.favorites],
         },
         error: null
       };

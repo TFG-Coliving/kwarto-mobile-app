@@ -11,227 +11,25 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
 import PujaAdCardComponent from "../../components/cards/pujaAdCardComponent";
+import {useSelector} from "react-redux";
+import {getProperties} from "../../redux/actions/properties/propertyActions";
 
 const HomeScreen = () => {
+  let properties = useSelector((state) => state.properties);
+  if (!properties){
+    const token = useSelector((state) => state.user.token);
+    properties = getProperties(token);
+  }
+  const alquilerProperties = properties.properties.filter(property => property.type === "Alquiler");
+  const pujasProperties = properties.properties.filter(property => property.type === "Puja");
+
   const navigation = useNavigation();
-  const [dataAlquiler, setDataAlquiler] = useState([
-    {
-      id: 1,
-      name: "PRUEBA ALQUILER",
-      image: "https://via.placeholder.com/150",
-      location: "Madrid",
-      price: "$50",
-    },
-    {
-      id: 2,
-      name: "Habitación doble cerca de la playa",
-      image: "https://via.placeholder.com/150",
-      location: "Barcelona",
-      price: "$80",
-    },
-    {
-      id: 3,
-      name: "Apartamento de lujo en el centro histórico",
-      image: "https://via.placeholder.com/150",
-      location: "Sevilla",
-      price: "$150",
-    },
-    {
-      id: 4,
-      name: "Habitación triple con vistas a la montaña",
-      image: "https://via.placeholder.com/150",
-      location: "Leon",
-      price: "$100",
-    },
-    {
-      id: 5,
-      name: "Casa en la playa con piscina",
-      image: "https://via.placeholder.com/150",
-      location: "Valencia",
-      price: "$200",
-    },
-    {
-      id: 6,
-      name: "Habitación individual en el centro",
-      image: "https://via.placeholder.com/150",
-      location: "Segovia",
-      price: "$50",
-    },
-    {
-      id: 7,
-      name: "Habitación doble cerca de la playa",
-      image: "https://via.placeholder.com/150",
-      location: "Toledo",
-      price: "$80",
-    },
-    {
-      id: 8,
-      name: "Apartamento de lujo en el centro histórico",
-      image: "https://via.placeholder.com/150",
-      location: "Córdoba",
-      price: "$150",
-    },
-    {
-      id: 9,
-      name: "Habitación triple con vistas a la montaña",
-      image: "https://via.placeholder.com/150",
-      location: "Cuenca",
-      price: "$100",
-    },
-    {
-      id: 10,
-      name: "Casa en la playa con piscina",
-      image: "https://via.placeholder.com/150",
-      location: "Granada",
-      price: "$200",
-    },
-    {
-      id: 11,
-      name: "Habitación individual en el centro",
-      image: "https://via.placeholder.com/150",
-      location: "Ávila",
-      price: "$50",
-    },
-    {
-      id: 12,
-      name: "Habitación doble cerca de la playa",
-      image: "https://via.placeholder.com/150",
-      location: "Salamanca",
-      price: "$80",
-    },
-    {
-      id: 13,
-      name: "Apartamento de lujo en el centro histórico",
-      image: "https://via.placeholder.com/150",
-      location: "Burgos",
-      price: "$150",
-    },
-    {
-      id: 14,
-      name: "Habitación triple con vistas a la montaña",
-      image: "https://via.placeholder.com/150",
-      location: "Bilbao",
-      price: "$100",
-    },
-    {
-      id: 15,
-      name: "Casa en la playa con piscina",
-      image: "https://via.placeholder.com/150",
-      location: "Santander",
-      price: "$200",
-    },
-  ]);
-  const [dataPuja, setDataPuja] = useState([
-    {
-      id: 1,
-      name: "PRUEBA PUJA",
-      image: "https://via.placeholder.com/150",
-      location: "A coruña",
-      price: "$50",
-    },
-    {
-      id: 2,
-      name: "Habitación doble cerca de la playa",
-      image: "https://via.placeholder.com/150",
-      location: "Barcelona",
-      price: "$80",
-    },
-    {
-      id: 3,
-      name: "Apartamento de lujo en el centro histórico",
-      image: "https://via.placeholder.com/150",
-      location: "Sevilla",
-      price: "$150",
-    },
-    {
-      id: 4,
-      name: "Habitación triple con vistas a la montaña",
-      image: "https://via.placeholder.com/150",
-      location: "Leon",
-      price: "$100",
-    },
-    {
-      id: 5,
-      name: "Casa en la playa con piscina",
-      image: "https://via.placeholder.com/150",
-      location: "Valencia",
-      price: "$200",
-    },
-    {
-      id: 6,
-      name: "Habitación individual en el centro",
-      image: "https://via.placeholder.com/150",
-      location: "Segovia",
-      price: "$50",
-    },
-    {
-      id: 7,
-      name: "Habitación doble cerca de la playa",
-      image: "https://via.placeholder.com/150",
-      location: "Toledo",
-      price: "$80",
-    },
-    {
-      id: 8,
-      name: "Apartamento de lujo en el centro histórico",
-      image: "https://via.placeholder.com/150",
-      location: "Córdoba",
-      price: "$150",
-    },
-    {
-      id: 9,
-      name: "Habitación triple con vistas a la montaña",
-      image: "https://via.placeholder.com/150",
-      location: "Cuenca",
-      price: "$100",
-    },
-    {
-      id: 10,
-      name: "Casa en la playa con piscina",
-      image: "https://via.placeholder.com/150",
-      location: "Granada",
-      price: "$200",
-    },
-    {
-      id: 11,
-      name: "Habitación individual en el centro",
-      image: "https://via.placeholder.com/150",
-      location: "Ávila",
-      price: "$50",
-    },
-    {
-      id: 12,
-      name: "Habitación doble cerca de la playa",
-      image: "https://via.placeholder.com/150",
-      location: "Salamanca",
-      price: "$80",
-    },
-    {
-      id: 13,
-      name: "Apartamento de lujo en el centro histórico",
-      image: "https://via.placeholder.com/150",
-      location: "Burgos",
-      price: "$150",
-    },
-    {
-      id: 14,
-      name: "Habitación triple con vistas a la montaña",
-      image: "https://via.placeholder.com/150",
-      location: "Bilbao",
-      price: "$100",
-    },
-    {
-      id: 15,
-      name: "Casa en la playa con piscina",
-      image: "https://via.placeholder.com/150",
-      location: "Santander",
-      price: "$200",
-    },
-  ]);
-  const [filterData, setFilterData] = useState(dataAlquiler);
+  const [filterData, setFilterData] = useState(alquilerProperties);
   const [searchText, setSearchText] = useState("");
   const [selectedButton, setSelectedButton] = useState("Alquiler");
   const [scrollViewHidden, setScrollViewHidden] = useState(false);
+
+
 
   const handleCardAlquilerPress = (cardData) => {
     // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
@@ -245,7 +43,7 @@ const HomeScreen = () => {
   const searchFilterFunction = (text) => {
     if (selectedButton === "Pujas") {
       if (text) {
-        const newData = dataPuja.filter((item) => {
+        const newData = pujasProperties.filter((item) => {
           const itemData = item.location.toUpperCase();
           const textData = text.toUpperCase();
           return itemData.indexOf(textData) > -1;
@@ -253,12 +51,12 @@ const HomeScreen = () => {
         setFilterData(newData);
         setSearchText(text);
       } else {
-        setFilterData(dataPuja);
+        setFilterData(pujasProperties);
         setSearchText("");
       }
     } else {
       if (text) {
-        const newData = dataAlquiler.filter((item) => {
+        const newData = alquilerProperties.filter((item) => {
           const itemData = item.location.toUpperCase();
           const textData = text.toUpperCase();
           return itemData.indexOf(textData) > -1;
@@ -266,7 +64,7 @@ const HomeScreen = () => {
         setFilterData(newData);
         setSearchText(text);
       } else {
-        setFilterData(dataAlquiler);
+        setFilterData(alquilerProperties);
         setSearchText("");
       }
     }
@@ -276,10 +74,10 @@ const HomeScreen = () => {
     setSelectedButton(button);
     if (button === "Pujas") {
       setScrollViewHidden(true);
-      setFilterData(dataPuja);
+      setFilterData(pujasProperties);
     } else {
       setScrollViewHidden(false);
-      setFilterData(dataAlquiler);
+      setFilterData(alquilerProperties);
     }
     setSearchText("");
   };

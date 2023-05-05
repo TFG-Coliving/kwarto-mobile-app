@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const EditFieldProfile = ({ label, value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,12 +35,10 @@ const EditFieldProfile = ({ label, value, onChange }) => {
                   onChangeText={handleValueChange}
                   autoFocus={true}
                   key={label}
+                  onBlur={handleSave} // added onBlur to save data automatically when unfocused
               />
-              <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-                <Text style={styles.saveButtonText}>Save</Text>
-              </TouchableOpacity>
               <TouchableOpacity style={styles.cancelButton} onPress={handleCancelEdit}>
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Ionicons name="close-outline" size={24} color="#8667f1" />
               </TouchableOpacity>
             </View>
         ) : (

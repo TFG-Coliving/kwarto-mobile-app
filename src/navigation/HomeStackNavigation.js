@@ -15,24 +15,23 @@ function HomeStack() {
             name="HomeScreen"
             component={HomeScreen}
             options={{
-              headerTitle:"Home",
-              headerLeft: null
+                headerShown: false
             }}
         />
         <HomeStackNavigation.Screen
           name="CardAlquiler"
           component={CardAlquiler}
           options={{
-            headerTitle:"Card Alquiler",
-            headerBackTitle: "Home"
+              headerTitle: "",
+              headerBackTitle: "Home"
           }}
         />
         <HomeStackNavigation.Screen
             name="CardPuja"
             component={CardPuja}
             options={{
-              headerTitle:"Card Puja",
-              headerBackTitle: "Home"
+                headerName: "",
+                headerBackTitle: "Home"
             }}
         />
       </HomeStackNavigation.Navigator>

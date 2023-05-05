@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import EditFieldProfile from "../../components/fields/EditFieldProfile";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserField} from "../../redux/actions/users/usersModule";
+import {setUserField} from "../../redux/actions/users/usersActions";
 
 const PersonalInfoScreen = () => {
   const dispatch = useDispatch();

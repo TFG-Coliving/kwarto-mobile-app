@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "./authModule";
+import {login} from "./authActions";
 import {useState} from "react";
 
 const useAuth = () => {

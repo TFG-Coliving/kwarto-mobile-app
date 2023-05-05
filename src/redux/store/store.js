@@ -1,14 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../reducers/authReducer';
 import usersReducer from "../reducers/usersReducer";
+import paymentReducer from "../reducers/paymentReducer";
+import propertyReducer from "../reducers/propertyReducer";
 import thunk from "redux-thunk";
 import {combineReducers} from "redux";
-import paymentReducer from "../reducers/paymentReducer";
+
 
 const rootReducer = combineReducers({
   authentication: authReducer,
   users: usersReducer,
-  payment: paymentReducer
+  payment: paymentReducer,
+  properties: propertyReducer,
 });
 
 const store = configureStore({

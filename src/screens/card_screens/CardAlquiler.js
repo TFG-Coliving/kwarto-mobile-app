@@ -8,6 +8,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const CardAlquiler = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params
@@ -15,12 +16,53 @@ const CardAlquiler = ({ route }) => {
   const [cardData] = useState([
     {
       id: 1,
-      name: "PRUEBA ALQUILER",
-      image: "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
-      location: "Madrid",
-      description: "Esta habitación de alquiler es una opción ideal para aquellos que buscan una estancia cómoda y acogedora en una zona tranquila y segura. La habitación cuenta con una cama doble, armario, escritorio y silla, así como un baño privado completo. La decoración es elegante y moderna, con paredes en tonos suaves y una iluminación cálida. Además, la habitación está equipada con aire acondicionado y calefacción para que puedas ajustar la temperatura según tus necesidades. La ubicación es perfecta para aquellos que quieran estar cerca del centro de la ciudad y de todas las atracciones turísticas, así como de las estaciones de transporte público.",
-      price: "$50",
+      country: "Spain",
+      province: "Madrid",
+      city: "Madrid",
+      address: "Gran Vía, 50",
+      coordinates_long_north: 1.36779,
+      coordinates_latitude_east: 23.536345,
+      score: 0.0,
+      available_rooms: 5,
+      dimensions: "400x400",
+      image:
+        "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
+      facilities: [
+        {
+          id: 1,
+          name: "garage",
+        },
+      ],
+      rooms: [
+        {
+          id: 1,
+          price: 400.0,
+          dimensions: "20x20",
+          capacity: 2,
+          bids: [],
+          _bid: false,
+        },
+      ],
+      rentReviews: [],
     },
+  ]);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([
+    "italy",
+    "spain",
+    "barcelona",
+    "finland",
+  ]);
+  const [items, setItems] = useState([
+    { label: "Spain", value: "spain" },
+    { label: "Madrid", value: "madrid", parent: "spain" },
+    { label: "Barcelona", value: "barcelona", parent: "spain" },
+
+    { label: "Italy", value: "italy" },
+    { label: "Rome", value: "rome", parent: "italy" },
+
+    { label: "Finland", value: "finland" },
   ]);
 
   return (
@@ -29,12 +71,26 @@ const CardAlquiler = ({ route }) => {
         <Image style={styles.image} source={{ uri: cardData[0].image }} />
       </View>
       <View style={styles.cardInfo}>
-        <Text style={styles.cardTitle}>{cardData[0].name}</Text>
-        <View style={styles.cardFooter}>
-          <Text style={styles.cardLocation}>{cardData[0].location}</Text>
-          <Text style={styles.cardPrice}>{cardData[0].price}</Text>
-        </View>
-        <Text style={styles.cardDescription}>{cardData[0].description}</Text>
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          theme="DARK"
+          multiple={true}
+          mode="BADGE"
+          badgeDotColors={[
+            "#e76f51",
+            "#00b4d8",
+            "#e9c46a",
+            "#e76f51",
+            "#8ac926",
+            "#00b4d8",
+            "#e9c46a",
+          ]}
+        />
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.favoritesButton}>
@@ -139,7 +195,7 @@ const styles = StyleSheet.create({
     marginLeft: "10%",
     width: "38%",
   },
-  favoritesButtonText: { 
+  favoritesButtonText: {
     color: "black",
     fontSize: 20,
     fontWeight: "bold",
@@ -157,7 +213,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginLeft: "auto",
   },
-  bookButtonText: { 
+  bookButtonText: {
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 20,

@@ -9,7 +9,7 @@ const initialState = {
     properties: [{
         id: 1,
         name: "PRUEBA ALQUILER",
-        image: "https://via.placeholder.com/150",
+        image: "https://avanzahomes.com/wp-content/uploads/2021/08/003-blog-comprar-piso-madrid.jpg",
         location: "Madrid",
         price: "$50",
         type: "Alquiler",
@@ -18,7 +18,7 @@ const initialState = {
     {
         id: 1,
         name: "PRUEBA PUJA",
-        image: "https://via.placeholder.com/150",
+        image: "https://avanzahomes.com/wp-content/uploads/2021/08/003-blog-comprar-piso-madrid.jpg",
         location: "A coruña",
         price: "$50",
         type: "Puja",

@@ -1,5 +1,5 @@
 
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../modules/auth/authConstants';
+import {LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, REGISTER_SUCCESS, REGISTER_FAILURE} from '../modules/auth/authConstants';
 
 const initialState = {
   token: null,
@@ -12,7 +12,7 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.payload.token,
+        token: action.payload,
         isLoggedIn: true,
         error: null
       };
@@ -29,6 +29,16 @@ const authReducer = (state = initialState, action) => {
         token: null,
         isLoggedIn: false,
         error: null
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        error: null
+      };
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        error: action.payload
       };
     default:
       return state;

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import AddPropertyScreen from "../screens/profile_screens/AddPropertyScreen";
-import MyPropertiesScreen from "../screens/profile_screens/MyPropertiesScreen";
 import {createStackNavigator} from "@react-navigation/stack";
 import PersonalInfoScreen from "../screens/profile_screens/PersonalInfoScreen";
 import PaymentInfoScreen from "../screens/profile_screens/PaymentInfoScreen";
@@ -12,6 +11,7 @@ import HelpScreen from "../screens/profile_screens/HelpScreen";
 import {NavigationContainer} from "@react-navigation/native";
 import ProfileScreen from "../screens/profile_screens/ProfileScreen";
 import LoginScreen from "../screens/login_register_screens/LoginScreen";
+import MyPropertiesStackNavigation from "./MyPropertiesStackNavigation";
 
 
 
@@ -39,7 +39,7 @@ function ProfileStack() {
           />
           <ProfileStackNavigation.Screen
                 name="MyProperties"
-                component={MyPropertiesScreen}
+                component={MyPropertiesStackNavigation}
                 options={{
                     headerTitle:"My Properties",
                     headerBackTitle: "Profile"

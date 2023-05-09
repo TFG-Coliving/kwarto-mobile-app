@@ -8,7 +8,9 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
+import { Ionicons } from "@expo/vector-icons";
+import Mapa from "../../components/fields/Mapa";
+//import DropDownPicker from 'react-native-dropdown-picker';
 
 const CardAlquiler = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params
@@ -16,13 +18,14 @@ const CardAlquiler = ({ route }) => {
   const [cardData] = useState([
     {
       id: 1,
+      name: "Prueba Alquiler",
       country: "Spain",
       province: "Madrid",
-      city: "Madrid",
-      address: "Gran Vía, 50",
-      coordinates_long_north: 1.36779,
-      coordinates_latitude_east: 23.536345,
-      score: 0.0,
+      city: "Alcorcon",
+      address: "Plaza Reyes de España, 1",
+      coordinates_long_north: -3.828476,
+      coordinates_latitude_east: 40.349213,
+      score: 4.5,
       available_rooms: 5,
       dimensions: "400x400",
       image:
@@ -30,24 +33,25 @@ const CardAlquiler = ({ route }) => {
       facilities: [
         {
           id: 1,
-          name: "garage",
+          name: "Parking",
         },
       ],
       rooms: [
         {
           id: 1,
+          name: "Habitación matrimonio",
           price: 400.0,
           dimensions: "20x20",
           capacity: 2,
           bids: [],
-          _bid: false,
         },
       ],
+      is_bid: false,
       rentReviews: [],
     },
   ]);
 
-  const [open, setOpen] = useState(false);
+  /*const [open, setOpen] = useState(false);
   const [value, setValue] = useState([
     "italy",
     "spain",
@@ -63,15 +67,41 @@ const CardAlquiler = ({ route }) => {
     { label: "Rome", value: "rome", parent: "italy" },
 
     { label: "Finland", value: "finland" },
-  ]);
+  ]);*/
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
+        <Text style={styles.nota}>
+          {cardData[0].score}
+          <Ionicons style={styles.star} name="star"></Ionicons>
+        </Text>
         <Image style={styles.image} source={{ uri: cardData[0].image }} />
       </View>
       <View style={styles.cardInfo}>
-        <DropDownPicker
+        <Text style={styles.cardTitle}>{cardData[0].name}</Text>
+        <View style={styles.cardFooter}>
+          <View style={{ width: "50%" }}>
+            <Text style={styles.cardLocation}>{cardData[0].address}</Text>
+            <Text style={styles.cardLocation}>
+              {cardData[0].city}, {cardData[0].province}
+            </Text>
+            <Text style={styles.cardLocation}>{cardData[0].country}</Text>
+          </View>
+          <View style={styles.rooms}>
+            <Text style={styles.numberRooms}>
+              {cardData[0].available_rooms}
+            </Text>
+            <Text style={styles.roomsText}>Rooms</Text>
+          </View>
+        </View>
+        <View style={styles.mapa}>
+          <Mapa
+            latitude={cardData[0].coordinates_latitude_east}
+            longitude={cardData[0].coordinates_long_north}
+          />
+        </View>
+        {/*<DropDownPicker
           open={open}
           value={value}
           items={items}
@@ -90,7 +120,7 @@ const CardAlquiler = ({ route }) => {
             "#00b4d8",
             "#e9c46a",
           ]}
-        />
+        />*/}
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.favoritesButton}>
@@ -114,15 +144,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F5F5",
   },
+  rooms: {
+    borderRadius: 15,
+    alignItems: "center",
+    width: "auto",
+    padding: 10,
+  },
   imageContainer: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: "5%",
   },
   image: {
-    marginTop: "10%",
     height: 300,
     width: "90%",
-    borderRadius: 15,
+    borderRadius: 10,
+    marginTop: "5%",
   },
   cardInfo: {
     padding: 20,
@@ -131,15 +167,24 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 20,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   cardTitle: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 10,
   },
+  nota: {
+    fontSize: 45,
+    fontWeight: "bold",
+  },
+  star: {
+    fontSize: 45,
+    fontWeight: "bold",
+    color: "#8667f1",
+  },
   cardLocation: {
-    fontSize: 20,
+    fontSize: 15,
     color: "black",
     marginBottom: "auto",
     marginTop: "auto",
@@ -148,12 +193,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 10,
   },
-  cardPrice: {
+  mapa: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "10%",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  numberRooms: {
     fontSize: 40,
     fontWeight: "bold",
     color: "#8667f1",
     textAlign: "center",
+    marginBottom: "auto",
+    marginTop: "auto",
+  },
+  roomsText: {
+    fontSize: 20,
+    color: "#8667f1",
     marginBottom: "auto",
     marginTop: "auto",
   },
@@ -174,7 +234,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderColor: "#8667f1",
     backgroundColor: "#F5F5F5",
-    borderRadius: 5,
+    borderRadius: 10,
     marginRight: "10%",
     marginLeft: "auto",
   },
@@ -190,7 +250,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderColor: "#8667f1",
     backgroundColor: "#F5F5F5",
-    borderRadius: 5,
+    borderRadius: 10,
     marginRight: "auto",
     marginLeft: "10%",
     width: "38%",
@@ -209,7 +269,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "#8667f1",
     backgroundColor: "#8667f1",
-    borderRadius: 5,
+    borderRadius: 10,
     marginRight: "auto",
     marginLeft: "auto",
   },

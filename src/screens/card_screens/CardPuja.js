@@ -8,33 +8,118 @@ import {
   Image,
   TextInput,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import Mapa from "../../components/fields/Mapa";
 
-const CardPuja= ({ route }) => {
+const CardPuja = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params
   //const { cardData } = route.params;
   const [cardData] = useState([
     {
       id: 1,
-      name: "PRUEBA PUJA",
-      image: "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
-      location: "Madrid",
-      description: "Esta habitación de alquiler es una opción ideal para aquellos que buscan una estancia cómoda y acogedora en una zona tranquila y segura. La habitación cuenta con una cama doble, armario, escritorio y silla, así como un baño privado completo. La decoración es elegante y moderna, con paredes en tonos suaves y una iluminación cálida. Además, la habitación está equipada con aire acondicionado y calefacción para que puedas ajustar la temperatura según tus necesidades. La ubicación es perfecta para aquellos que quieran estar cerca del centro de la ciudad y de todas las atracciones turísticas, así como de las estaciones de transporte público.",
-      price: "$50",
+      name: "Prueba Puja",
+      country: "Spain",
+      province: "Barcelona",
+      city: "Sabadell",
+      address: "Plaza Catalunya, 1",
+      coordinates_long_north: 2.098955621583387,
+      coordinates_latitude_east: 41.55001651201284,
+      score: 4.5,
+      available_rooms: 5,
+      dimensions: "400x400",
+      image:
+        "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
+      facilities: [
+        {
+          id: 1,
+          name: "Parking",
+        },
+      ],
+      rooms: [
+        {
+          id: 1,
+          name: "Habitación matrimonio",
+          price: 400.0,
+          dimensions: "20x20",
+          capacity: 2,
+          bids: [],
+        },
+      ],
+      is_bid: true,
+      rentReviews: [],
     },
   ]);
+
+  /*const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([
+    "italy",
+    "spain",
+    "barcelona",
+    "finland",
+  ]);
+  const [items, setItems] = useState([
+    { label: "Spain", value: "spain" },
+    { label: "Madrid", value: "madrid", parent: "spain" },
+    { label: "Barcelona", value: "barcelona", parent: "spain" },
+
+    { label: "Italy", value: "italy" },
+    { label: "Rome", value: "rome", parent: "italy" },
+
+    { label: "Finland", value: "finland" },
+  ]);*/
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
+        <Text style={styles.nota}>
+          {cardData[0].score}
+          <Ionicons style={styles.star} name="star"></Ionicons>
+        </Text>
         <Image style={styles.image} source={{ uri: cardData[0].image }} />
       </View>
       <View style={styles.cardInfo}>
         <Text style={styles.cardTitle}>{cardData[0].name}</Text>
         <View style={styles.cardFooter}>
-          <Text style={styles.cardLocation}>{cardData[0].location}</Text>
-          <Text style={styles.cardPrice}>{cardData[0].price}</Text>
+          <View style={{ width: "50%" }}>
+            <Text style={styles.cardLocation}>{cardData[0].address}</Text>
+            <Text style={styles.cardLocation}>
+              {cardData[0].city}, {cardData[0].province}
+            </Text>
+            <Text style={styles.cardLocation}>{cardData[0].country}</Text>
+          </View>
+          <View style={styles.rooms}>
+            <Text style={styles.numberRooms}>
+              {cardData[0].available_rooms}
+            </Text>
+            <Text style={styles.roomsText}>Rooms</Text>
+          </View>
         </View>
-        <Text style={styles.cardDescription}>{cardData[0].description}</Text>
+        <View style={styles.mapa}>
+          <Mapa
+            latitude={cardData[0].coordinates_latitude_east}
+            longitude={cardData[0].coordinates_long_north}
+          />
+        </View>
+        {/*<DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          theme="DARK"
+          multiple={true}
+          mode="BADGE"
+          badgeDotColors={[
+            "#e76f51",
+            "#00b4d8",
+            "#e9c46a",
+            "#e76f51",
+            "#8ac926",
+            "#00b4d8",
+            "#e9c46a",
+          ]}
+        />*/}
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.favoritesButton}>
@@ -46,7 +131,7 @@ const CardPuja= ({ route }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.bookButton}>
-          <Text style={styles.bookButtonText}>Pujar</Text>
+          <Text style={styles.bookButtonText}>Reservar</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -58,15 +143,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e1e7ff",
   },
+  rooms: {
+    borderRadius: 15,
+    alignItems: "center",
+    width: "auto",
+    padding: 10,
+  },
   imageContainer: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: "5%",
   },
   image: {
-    marginTop: "10%",
     height: 300,
     width: "90%",
-    borderRadius: 15,
+    borderRadius: 10,
+    marginTop: "5%",
   },
   cardInfo: {
     padding: 20,
@@ -75,15 +166,24 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 20,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   cardTitle: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 10,
   },
+  nota: {
+    fontSize: 45,
+    fontWeight: "bold",
+  },
+  star: {
+    fontSize: 45,
+    fontWeight: "bold",
+    color: "#8667f1",
+  },
   cardLocation: {
-    fontSize: 20,
+    fontSize: 15,
     color: "black",
     marginBottom: "auto",
     marginTop: "auto",
@@ -92,12 +192,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 10,
   },
-  cardPrice: {
+  mapa: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "10%",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  numberRooms: {
     fontSize: 40,
     fontWeight: "bold",
     color: "#8667f1",
     textAlign: "center",
+    marginBottom: "auto",
+    marginTop: "auto",
+  },
+  roomsText: {
+    fontSize: 20,
+    color: "#8667f1",
     marginBottom: "auto",
     marginTop: "auto",
   },
@@ -115,9 +230,10 @@ const styles = StyleSheet.create({
     width: "38%",
     padding: 10,
     borderWidth: 3,
+    height: 60,
     borderColor: "#8667f1",
-    borderRadius: 5,
     backgroundColor: "#e1e7ff",
+    borderRadius: 10,
     marginRight: "10%",
     marginLeft: "auto",
   },
@@ -130,14 +246,15 @@ const styles = StyleSheet.create({
   favoritesButton: {
     padding: 10,
     borderWidth: 3,
+    height: 60,
     borderColor: "#8667f1",
     backgroundColor: "#e1e7ff",
-    borderRadius: 5,
+    borderRadius: 10,
     marginRight: "auto",
     marginLeft: "10%",
     width: "38%",
   },
-  favoritesButtonText: { 
+  favoritesButtonText: {
     color: "black",
     fontSize: 20,
     fontWeight: "bold",
@@ -146,15 +263,16 @@ const styles = StyleSheet.create({
   bookButton: {
     marginTop: -20,
     padding: 10,
+    height: 60,
     width: "80%",
     borderWidth: 3,
     borderColor: "#8667f1",
     backgroundColor: "#8667f1",
-    borderRadius: 5,
+    borderRadius: 10,
     marginRight: "auto",
     marginLeft: "auto",
   },
-  bookButtonText: { 
+  bookButtonText: {
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 20,

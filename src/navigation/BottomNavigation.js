@@ -14,32 +14,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfileMenuScreen from "../screens/bottom_navigation_screens/ProfileMenuScreen";
 import HomeMenuScreen from "../screens/bottom_navigation_screens/HomeMenuScreen";
 
-const HomeStackNavigator = createNativeStackNavigator();
-function MyStack() {
-    return (
-        <HomeStackNavigator.Navigator
-            initialRouteName="HomeScreen"
-        >
-            <HomeStackNavigator.Screen
-                name="Profile"
-                component={ProfileMenuScreen}
-            />
-            <HomeStackNavigator.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{
-                    headerShown: false
-                }}
-            />
-            <HomeStackNavigator.Screen
-                name="StackScreen"
-                component={StackScreen}
-                options={{
-                }}
-            />
-        </HomeStackNavigator.Navigator>
-    );
-}
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {

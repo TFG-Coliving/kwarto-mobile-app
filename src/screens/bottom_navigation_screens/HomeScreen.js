@@ -9,8 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
-import PujaAdCardComponent from "../../components/cards/pujaAdCardComponent";
+import RentAdCardComponent from "../../components/cards/AdCardComponent";
 import { useSelector } from "react-redux";
 import { getProperties } from "../../redux/actions/properties/propertyActions";
 import { Ionicons } from "@expo/vector-icons";

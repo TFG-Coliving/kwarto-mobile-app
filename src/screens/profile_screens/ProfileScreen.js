@@ -45,6 +45,8 @@ export default function ProfileScreen( ) {
               </View>
             </View>
           </View>
+          <MenuButton iconType={'home'} text={"Add Property"} onPress={() => navigation.navigate("AddProperty")}/>
+          <MenuButton iconType={'business'} text={"My Properties"} onPress={() => navigation.navigate("MyProperties")}/>
           <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
           <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
           <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>

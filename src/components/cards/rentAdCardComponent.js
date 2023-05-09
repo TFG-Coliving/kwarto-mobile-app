@@ -5,7 +5,7 @@ const RentCardComponent = ({name, image, location, price, item, onPress}) => {
   return (
       <TouchableOpacity
           key={item.id}
-          style={styles.card}
+          style={item.is_bid ? styles.cardBid : styles.cardRent}
           onPress={onPress}
       >
         <Image source={{ uri: image }} style={styles.cardImage} />
@@ -23,12 +23,19 @@ const RentCardComponent = ({name, image, location, price, item, onPress}) => {
 export default RentCardComponent;
 
 const styles = StyleSheet.create({
-  card: {
+  cardRent: {
     flexDirection: "row",
     borderRadius: 5,
     marginBottom: 20,
     padding: 10,
     backgroundColor: "#FFFFFF",
+  },
+  cardBid: {
+    flexDirection: "row",
+    borderRadius: 5,
+    marginBottom: 20,
+    padding: 10,
+    backgroundColor: "#e1e7ff",
   },
   cardImage: {
     width: "50%",

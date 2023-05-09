@@ -10,7 +10,7 @@ import {useSelector} from "react-redux";
 export const getCurrentUser = (token) => dispatch => {
   return axios.get(API_USER, {
     headers: {
-      Authorization:token
+      'Authorization':'Bearer '+token
     }
   })
   .then(response => {
@@ -30,7 +30,7 @@ export const setUserField = (payload) => dispatch => {
 export const updateUser = (token, user) => dispatch => {
   return axios.put(API_UPDATE_USER, user, {
     headers: {
-      Authorization:token
+      'Authorization':'Bearer '+token
     }
   })
   .then(response => {

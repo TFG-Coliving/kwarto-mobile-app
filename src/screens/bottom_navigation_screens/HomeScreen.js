@@ -15,13 +15,13 @@ import {useSelector} from "react-redux";
 import {getProperties} from "../../redux/actions/properties/propertyActions";
 
 const HomeScreen = () => {
-  let properties = useSelector((state) => state.properties);
+  let properties = useSelector((state) => state.properties.properties);
   if (!properties){
-    const token = useSelector((state) => state.user.token);
+    const token = useSelector((state) => state.authentication.token);
     properties = getProperties(token);
   }
-  const alquilerProperties = properties.properties.filter(property => property.type === "Alquiler");
-  const pujasProperties = properties.properties.filter(property => property.type === "Puja");
+  const alquilerProperties = properties.filter(property => property.is_bid === false);
+  const pujasProperties = properties.filter(property => property.is_bid === true);
 
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState(alquilerProperties);

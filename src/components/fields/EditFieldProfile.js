@@ -38,7 +38,7 @@ const EditFieldProfile = ({ label, value, onChange }) => {
                   onBlur={handleSave} // added onBlur to save data automatically when unfocused
               />
               <TouchableOpacity style={styles.cancelButton} onPress={handleCancelEdit}>
-                <Ionicons name="close-outline" size={24} color="#8667f1" />
+                <Ionicons name="close-circle" size={24} color="#8667f1" />
               </TouchableOpacity>
             </View>
         ) : (

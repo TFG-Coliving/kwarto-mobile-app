@@ -11,8 +11,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
 import PujaAdCardComponent from "../../components/cards/pujaAdCardComponent";
-import {useSelector} from "react-redux";
-import {getProperties} from "../../redux/actions/properties/propertyActions";
+import { useSelector } from "react-redux";
+import { getProperties } from "../../redux/actions/properties/propertyActions";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   let properties = useSelector((state) => state.properties.properties);
@@ -29,22 +30,14 @@ const HomeScreen = () => {
   const [selectedButton, setSelectedButton] = useState("Alquiler");
   const [scrollViewHidden, setScrollViewHidden] = useState(false);
 
+  const handleCardPress = (cardData) => cardData.is_bid ? navigation.navigate("CardPuja", { cardData }) : navigation.navigate("CardAlquiler", { cardData })
 
-
-  const handleCardAlquilerPress = (cardData) => {
-    // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
-    navigation.navigate("CardAlquiler", { cardData });
-  }
-  const handleCardPujaPress = (cardData) => {
-    // Aquí puedes navegar a la nueva pantalla y pasar la información de la card seleccionada
-    navigation.navigate("CardPuja", { cardData });
-  };
 
   const searchFilterFunction = (text) => {
     if (selectedButton === "Pujas") {
       if (text) {
         const newData = pujasProperties.filter((item) => {
-          const itemData = item.location.toUpperCase();
+          const itemData = item.province.toUpperCase();
           const textData = text.toUpperCase();
           return itemData.indexOf(textData) > -1;
         });
@@ -57,7 +50,7 @@ const HomeScreen = () => {
     } else {
       if (text) {
         const newData = alquilerProperties.filter((item) => {
-          const itemData = item.location.toUpperCase();
+          const itemData = item.province.toUpperCase();
           const textData = text.toUpperCase();
           return itemData.indexOf(textData) > -1;
         });
@@ -92,12 +85,20 @@ const HomeScreen = () => {
           alt="My Image"
         />
       </View>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Escribe un destino"
-        value={searchText}
-        onChangeText={(text) => searchFilterFunction(text)}
-      />
+      <View style={{ position: "relative" }}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Escribe un destino"
+          value={searchText}
+          onChangeText={(text) => searchFilterFunction(text)}
+        />
+        <Ionicons
+          name="search-outline"
+          size={24}
+          color="gray"
+          style={{ position: "absolute", right: 20, top: 60 }}
+        />
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
@@ -122,12 +123,13 @@ const HomeScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {filterData.map((item) => {
             return (
-              <RentAdCardComponent onPress={() => handleCardAlquilerPress(item)}
-                                   item={item}
-                                   name={item.name}
-                                   location={item.location}
-                                   price={item.price}
-                                   image={item.image}
+              <RentAdCardComponent
+                onPress={() => handleCardPress(item)}
+                item={item}
+                name={item.name}
+                province={item.province}
+                available_rooms={item.available_rooms}
+                image={item.image}
               />
             );
           })}
@@ -137,12 +139,13 @@ const HomeScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {filterData.map((item) => {
             return (
-              <PujaAdCardComponent onPress={() => handleCardPujaPress(item)}
-                                   item={item}
-                                   name={item.name}
-                                   location={item.location}
-                                   price={item.price}
-                                   image={item.image}
+              <PujaAdCardComponent
+                onPress={() => handleCardPress(item)}
+                item={item}
+                name={item.name}
+                province={item.province}
+                available_rooms={item.available_rooms}
+                image={item.image}
               />
             );
           })}
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderWidth: 2,
     borderColor: "#8667f1",
-    borderRadius: 5,
+    borderRadius: 10,
     marginRight: 10,
     color: "white",
   },

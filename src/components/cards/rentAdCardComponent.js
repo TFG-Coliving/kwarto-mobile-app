@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 
-const RentCardComponent = ({name, image, location, price, item, onPress}) => {
+const RentCardComponent = ({name, image, province, available_rooms, item, onPress}) => {
   return (
       <TouchableOpacity
           key={item.id}
@@ -12,9 +12,10 @@ const RentCardComponent = ({name, image, location, price, item, onPress}) => {
         <View style={styles.cardContent}>
           <Text style={styles.cardTitle}>{name}</Text>
           <Text style={styles.cardLocation}>
-            {location}
+            {province}
           </Text>
-          <Text style={styles.cardPrice}>{price}</Text>
+          <Text style={styles.cardPrice}>{available_rooms}</Text>
+          <Text style={styles.roomsText}>Rooms</Text>
         </View>
       </TouchableOpacity>
   );
@@ -25,7 +26,7 @@ export default RentCardComponent;
 const styles = StyleSheet.create({
   cardRent: {
     flexDirection: "row",
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 20,
     padding: 10,
     backgroundColor: "#FFFFFF",
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     height: 150,
     marginBottom: "auto",
     marginRight: 20,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   cardContent: {
     flex: 1,
@@ -56,6 +57,11 @@ const styles = StyleSheet.create({
   cardLocation: {
     fontSize: 17,
     marginTop: "auto",
+    marginBottom: "auto",
+    textAlign: "center",
+  },
+  roomsText: {
+    fontSize: 10,
     marginBottom: "auto",
     textAlign: "center",
   },

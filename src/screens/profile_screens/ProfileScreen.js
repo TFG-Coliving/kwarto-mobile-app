@@ -1,57 +1,70 @@
-import React, {useEffect} from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import React from 'react';
+import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MenuButton from '../../components/buttons/MenuButton';
 import {useNavigation} from "@react-navigation/native";
-import useAuth from "../../redux/modules/auth/useAuth";
-import {getCurrentUser} from "../../redux/modules/users/usersModule";
 import {useSelector, useDispatch} from "react-redux";
-import Users from "../../redux/modules/users/users";
 
 
+function calculateStars(rating) {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      stars.push(<Ionicons name='md-star' size={24} color='#f7d825' />);
+    }
+    else if (!Number.isInteger(rating) ){
+      stars.push(<Ionicons name='md-star-half' size={24} color='#f7d825' />);
+    }
+    else {
+      stars.push(<Ionicons name='md-star-outline' size={24} color='#f7d825' />);
+    }
+  }
+  return stars;
+}
 
 export default function ProfileScreen( ) {
   const navigation = useNavigation();
-  // esta parte se queda en el profile, para poder recoger el user
   const dispatch = useDispatch();
-  const token = useSelector(state => state.authentication.token);
-  useEffect(() => {
+  const user = useSelector(state => state.users.user);
+
+  // if we don't have a user stored in redux, we need to fetch it from the server
+  if (user === null) {
+    /*let token = useSelector(state => state.authentication.token);
     dispatch(getCurrentUser(token));
-  }, [dispatch, token]);
-  // -------------------------------------------------------------------
-  const user = Users();
+    */
+  }
   return (
-      <View style={styles.container}>
-        <View style={styles.profile}>
-          <Image source={{uri: user.getProfilePicture()}} style={styles.profilePicture} />
-          <View style={styles.profileDetails}>
-            <Text style={styles.name}>{user.getFirstName()} {user.getLastName()}</Text>
-            <View style={styles.score}>
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star' size={24} color='#f7d825' />
-              <Ionicons name='md-star-half' size={24} color='#f7d825' />
+      <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} style={styles.scrollView}>
+        <View style={styles.container}>
+          <View style={styles.profile}>
+            <Image source={/*{{uri: user?.profilepicture.uri}}*/require('../../assets/profile_picture.jpg')} style={styles.profilePicture} />
+            <View style={styles.profileDetails}>
+              <Text style={styles.name}>{user?.firstname}{" "}{user?.lastname}</Text>
+              <View style={styles.score}>
+                {calculateStars(/*user?.score*/4.5)}
+              </View>
             </View>
           </View>
+          <MenuButton iconType={'home'} text={"Add Property"} onPress={() => navigation.navigate("AddProperty")}/>
+          <MenuButton iconType={'business'} text={"My Properties"} onPress={() => navigation.navigate("MyProperties")}/>
+          <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
+          <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
+          <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>
+          <MenuButton iconType={'notifications'} text={"Notifications"} onPress={() => navigation.navigate("Notifications")}/>
+          <MenuButton iconType={'lock-closed'} text={"Security"} onPress={() => navigation.navigate("Security")}/>
+          <MenuButton iconType={'help'} text={"Help"} onPress={() => navigation.navigate("Help")}/>
+          <MenuButton iconType={'log-out'} text={"Log Out"} onPress={() => navigation.navigate("LogOut")}/>
         </View>
-        <MenuButton iconType={'person'} text={"Personal Info"} onPress={() => navigation.navigate("PersonalInfo")}/>
-        <MenuButton iconType={'card'} text={"Payment Info"} onPress={() => navigation.navigate("PaymentInfo")}/>
-        <MenuButton iconType={'settings'} text={"Settings"} onPress={() => navigation.navigate("Settings")}/>
-        <MenuButton iconType={'heart'} text={"Favorites"} onPress={() => navigation.navigate("Favourites")}/>
-        <MenuButton iconType={'notifications'} text={"Notifications"} onPress={() => navigation.navigate("Notifications")}/>
-        <MenuButton iconType={'lock-closed'} text={"Security"} onPress={() => navigation.navigate("Security")}/>
-        <MenuButton iconType={'help'} text={"Help"} onPress={() => navigation.navigate("Help")}/>
-        <MenuButton iconType={'log-out'} text={"Log Out"} onPress={() => navigation.navigate("LogOut")}/>
-
-      </View>
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: '#ffffff',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     padding: 16,
   },
   profile: {

@@ -1,18 +1,17 @@
 import React from 'react';
 
-
-import SettingsScreen from "../screens/profile_screens/SettingsScreen";
+import AddPropertyScreen from "../screens/profile_screens/AddPropertyScreen";
+import MyPropertiesScreen from "../screens/profile_screens/MyPropertiesScreen";
 import {createStackNavigator} from "@react-navigation/stack";
 import PersonalInfoScreen from "../screens/profile_screens/PersonalInfoScreen";
 import PaymentInfoScreen from "../screens/profile_screens/PaymentInfoScreen";
 import FavouritesScreen from "../screens/profile_screens/FavouritesScreen";
-import NotificationsScreen
-  from "../screens/profile_screens/NotificationsScreen";
+import NotificationsScreen from "../screens/profile_screens/NotificationsScreen";
 import SecurityScreen from "../screens/profile_screens/SecurityScreen";
 import HelpScreen from "../screens/profile_screens/HelpScreen";
-import LogOutScreen from "../screens/profile_screens/LogOutScreen";
 import {NavigationContainer} from "@react-navigation/native";
 import ProfileScreen from "../screens/profile_screens/ProfileScreen";
+import LoginScreen from "../screens/login_register_screens/LoginScreen";
 
 
 
@@ -26,9 +25,26 @@ function ProfileStack() {
             name="ProfileScreen"
             component={ProfileScreen}
             options={{
-              headerTitle:"Profile"
+              headerTitle:"Profile",
+              headerLeft: null
             }}
         />
+          <ProfileStackNavigation.Screen
+              name="AddProperty"
+              component={AddPropertyScreen}
+                options={{
+                    headerTitle:"Add Property",
+                    headerBackTitle: "Profile"
+                }}
+          />
+          <ProfileStackNavigation.Screen
+                name="MyProperties"
+                component={MyPropertiesScreen}
+                options={{
+                    headerTitle:"My Properties",
+                    headerBackTitle: "Profile"
+                }}
+          />
         <ProfileStackNavigation.Screen
           name="PersonalInfo"
           component={PersonalInfoScreen}
@@ -42,14 +58,6 @@ function ProfileStack() {
             component={PaymentInfoScreen}
             options={{
               headerTitle:"Payment Info",
-              headerBackTitle: "Profile"
-            }}
-        />
-        <ProfileStackNavigation.Screen
-            name="Settings"
-            component={SettingsScreen}
-            options={{
-              headerTitle:"Settings",
               headerBackTitle: "Profile"
             }}
         />
@@ -87,7 +95,7 @@ function ProfileStack() {
         />
         <ProfileStackNavigation.Screen
             name="LogOut"
-            component={LogOutScreen}
+            component={LoginScreen}
             options={{
               headerTitle:"Log Out",
               headerBackTitle: "Profile"

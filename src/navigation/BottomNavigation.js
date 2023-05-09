@@ -12,6 +12,7 @@ import ProfileScreen from "../screens/profile_screens/ProfileScreen";
 //icons
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfileMenuScreen from "../screens/bottom_navigation_screens/ProfileMenuScreen";
+import HomeMenuScreen from "../screens/bottom_navigation_screens/HomeMenuScreen";
 
 const HomeStackNavigator = createNativeStackNavigator();
 function MyStack() {
@@ -53,7 +54,7 @@ function MyTabs() {
 
             <Tab.Screen
                 name="Home"
-                component={MyStack}
+                component={HomeMenuScreen}
                 options={{
                   tabBarIcon: ({ color, size }) => (
                     <MaterialCommunityIcons name="home" color={color} size={30} />
@@ -77,7 +78,7 @@ function MyTabs() {
 
 export default function BottomNavigation() {
     return (
-        <NavigationContainer>
+        <NavigationContainer independent={true}>
             <MyTabs/>
         </NavigationContainer>
     );

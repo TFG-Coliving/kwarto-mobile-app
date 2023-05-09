@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Keyboard} from 'react-native';
 import CustomButton from "../../components/buttons/CustomButton";
-import useAuth from "../../redux/modules/auth/useAuth";
+import useAuth from "../../redux/actions/auth/useAuth";
 import Input from "../../components/fields/Input";
 import {useSelector} from "react-redux";
 

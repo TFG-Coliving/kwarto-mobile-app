@@ -1,7 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "./authActions";
 import {useState} from "react";
-import {login, registerUser} from "./authModule";
+import {login, registerUser} from "./authActions";
 
 const useAuth = callback => {
   const [firstname, setFirstName] = useState('');

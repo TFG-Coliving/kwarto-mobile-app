@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput,
+  TextInput, BackHandler,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
@@ -32,6 +32,15 @@ const HomeScreen = () => {
 
   const handleCardPress = (cardData) => cardData.is_bid ? navigation.navigate("CardPuja", { cardData }) : navigation.navigate("CardAlquiler", { cardData })
 
+  //Para que no se pueda volver atrass
+  const handleBackButton = () => {
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+  }, []);
 
   const searchFilterFunction = (text) => {
     if (selectedButton === "Pujas") {

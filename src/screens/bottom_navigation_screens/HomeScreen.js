@@ -17,16 +17,12 @@ import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   let properties = useSelector((state) => state.properties.properties);
-  if (!properties) {
-    const token = useSelector((state) => state.user.token);
+  if (!properties){
+    const token = useSelector((state) => state.authentication.token);
     properties = getProperties(token);
   }
-  const alquilerProperties = properties.filter(
-    (property) => property.is_bid === false
-  );
-  const pujasProperties = properties.filter(
-    (property) => property.is_bid === true
-  );
+  const alquilerProperties = properties.filter(property => property.is_bid === false);
+  const pujasProperties = properties.filter(property => property.is_bid === true);
 
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState(alquilerProperties);

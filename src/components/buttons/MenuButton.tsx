@@ -1,6 +1,5 @@
 import {TouchableOpacity, StyleSheet, Text} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import {Link} from 'expo-router';
 
 const MenuButton = ({ iconType, text, onPress }) => {
   return (

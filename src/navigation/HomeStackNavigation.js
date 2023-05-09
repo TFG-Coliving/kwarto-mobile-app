@@ -22,7 +22,7 @@ function HomeStack() {
           name="CardAlquiler"
           component={CardAlquiler}
           options={{
-              headerTitle: "",
+              headerTitle: "Alquiler",
               headerBackTitle: "Home"
           }}
         />
@@ -30,7 +30,7 @@ function HomeStack() {
             name="CardPuja"
             component={CardPuja}
             options={{
-                headerName: "",
+                headerTitle: "Puja",
                 headerBackTitle: "Home"
             }}
         />

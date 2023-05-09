@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Mapa from "../../components/fields/Mapa";
+//import DropDownPicker from 'react-native-dropdown-picker';
 
 const CardPuja = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params

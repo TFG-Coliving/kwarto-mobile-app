@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Keyboard}
 import CustomButton from "../../components/buttons/CustomButton";
 import useAuth from "../../redux/actions/auth/useAuth";
 import Input from "../../components/fields/Input";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 
 const RegisterScreen = ({navigation}) => {
 
@@ -70,6 +70,23 @@ const RegisterScreen = ({navigation}) => {
         }
     }, [error]);
 
+    /*const registerUserAsync = async () => {
+            const response = await handleRegister({
+                firstname: inputs.firstname,
+                lastname: inputs.lastname,
+                email: inputs.email,
+                phone: inputs.phone,
+                password: inputs.password,
+                preventDefault: () => {}
+            });
+             if (response && response.data) {
+        // El response.data no es nulo, puedes hacer algo aquí...
+        console.log('Registro exitoso:', response.data);
+      } else {
+        // El response.data es nulo o no existe, puedes hacer algo aquí...
+        console.log('Error en el registro:', response);
+      }
+    };*/
     return (
         <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
             <ScrollView showsVerticalScrollIndicator={false} style={{paddingHorizontal: 25}}>

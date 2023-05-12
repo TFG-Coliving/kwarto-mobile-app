@@ -10,16 +10,32 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AdCardComponent from "../../components/cards/AdCardComponent";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { getProperties } from "../../redux/actions/properties/propertyActions";
 import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   let properties = useSelector((state) => state.properties.properties);
-  if (!properties){
-    const token = useSelector((state) => state.authentication.token);
-    properties = getProperties(token);
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
+
+  if (!properties) {
+    console.log("token en useEffect: ", token);
+    dispatch(getProperties(token));
+    console.log("properties despues de dispatch: ", properties);
   }
+
+  useEffect(() => {
+    if (!properties) {
+
+      dispatch(getProperties(token));
+      console.log("hola")
+    }
+
+  }, [token]);
+
+  console.log("properties: ", properties);
+
   const alquilerProperties = properties.filter(property => property.is_bid === false);
   const pujasProperties = properties.filter(property => property.is_bid === true);
 
@@ -132,12 +148,13 @@ const HomeScreen = () => {
           {filterData.map((item) => {
             return (
               <AdCardComponent
-                onPress={() => handleCardPress(item)}
-                item={item}
-                name={item.name}
-                province={item.province}
-                available_rooms={item.available_rooms}
-                image={item.image}
+                  key={item.id}
+                  onPress={() => handleCardPress(item)}
+                  item={item}
+                  name={item.name}
+                  province={item.province}
+                  available_rooms={item.available_rooms}
+                  image={item.image}
               />
             );
           })}
@@ -148,12 +165,13 @@ const HomeScreen = () => {
           {filterData.map((item) => {
             return (
               <AdCardComponent
-                onPress={() => handleCardPress(item)}
-                item={item}
-                name={item.name}
-                province={item.province}
-                available_rooms={item.available_rooms}
-                image={item.image}
+                  key={item.id}
+                  onPress={() => handleCardPress(item)}
+                  item={item}
+                  name={item.name}
+                  province={item.province}
+                  available_rooms={item.available_rooms}
+                  image={item.image}
               />
             );
           })}

@@ -12,30 +12,30 @@ const initialState = {
   properties: [
     {
       id: 1,
-      name: "Prueba Alquiler",
-      country: "Spain",
-      province: "Madrid",
-      city: "Alcorcon",
-      address: "Plaza Reyes de España, 1",
+      name: "",
+      country: "",
+      province: "",
+      city: "",
+      address: "",
       coordinates_long_north: -3.828476,
       coordinates_latitude_east: 40.349213,
       score: 4.5,
-      available_rooms: 5,
-      dimensions: "400x400",
+      available_rooms: "-",
+      dimensions: "",
       image:
-        "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
+        "https://www.surforma.com/media/filer_public_thumbnails/filer_public/25/c7/25c793ae-4b50-40f3-a954-1fdc52c999fd/l4068.jpg__800x600_q95_crop_subsampling-2_upscale.jpg",
       facilities: [
         {
           id: 1,
-          name: "Parking",
+          name: "",
         },
       ],
       rooms: [
         {
           id: 1,
-          name: "Habitación matrimonio",
+          name: "",
           price: 400.0,
-          dimensions: "20x20",
+          dimensions: "",
           capacity: 2,
           bids: [],
         },
@@ -45,30 +45,30 @@ const initialState = {
     },
     {
       id: 1,
-      name: "Prueba Puja",
-      country: "Spain",
-      province: "Barcelona",
-      city: "Sabadell",
-      address: "Plaza Catalunya, 1",
+      name: "",
+      country: "",
+      province: "",
+      city: "",
+      address: "",
       coordinates_long_north: 41.55001651201284,
       coordinates_latitude_east:  2.098955621583387,
       score: 4.5,
-      available_rooms: 5,
-      dimensions: "400x400",
+      available_rooms: "",
+      dimensions: "",
       image:
-        "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
+        "https://www.surforma.com/media/filer_public_thumbnails/filer_public/25/c7/25c793ae-4b50-40f3-a954-1fdc52c999fd/l4068.jpg__800x600_q95_crop_subsampling-2_upscale.jpg",
       facilities: [
         {
           id: 1,
-          name: "Parking",
+          name: "",
         },
       ],
       rooms: [
         {
           id: 1,
-          name: "Habitación matrimonio",
+          name: "",
           price: 400.0,
-          dimensions: "20x20",
+          dimensions: "",
           capacity: 2,
           bids: [],
         },
@@ -149,8 +149,9 @@ const initialState = {
 };
 
 const propertyReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case REQUEST_PROPERTIES_SUCCESS:
+  switch (action.type) {
+    case REQUEST_PROPERTIES_SUCCESS:
+      console.log("la casa ahora es en el reducer: " + action.payload)
             return {
                 ...state,
                 properties: [...action.payload],

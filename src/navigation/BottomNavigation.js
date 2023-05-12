@@ -1,14 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
-
-//screens
-import HomeScreen from "../screens/bottom_navigation_screens/HomeScreen";
-
-import StackScreen from "../screens/bottom_navigation_screens/StackScreen";
-import ProfileScreen from "../screens/profile_screens/ProfileScreen";
-
 //icons
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfileMenuScreen from "../screens/bottom_navigation_screens/ProfileMenuScreen";

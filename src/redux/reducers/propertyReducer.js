@@ -9,7 +9,7 @@ import {
 
 
 const initialState = {
-  properties: [
+  properties: null,/*[
     {
       id: 1,
       name: "Prueba Alquiler",
@@ -145,12 +145,15 @@ const initialState = {
           rentReviews: [],
       },
   ],
+  */
+  user_properties: null,
   error: null,
 };
 
 const propertyReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case REQUEST_PROPERTIES_SUCCESS:
+  switch (action.type) {
+    case REQUEST_PROPERTIES_SUCCESS:
+      console.log("la casa ahora es en el reducer: " + action.payload)
             return {
                 ...state,
                 properties: [...action.payload],

@@ -10,13 +10,14 @@ import {
 } from "./propertyConstants";
 
 export const getProperties = (token) => dispatch => {
+    console.log("token: " + token);
     return axios.get(API_PROPERTIES, {
         headers: {
             'Authorization':'Bearer '+token
         }
     })
     .then(response => {
-        console.log(response);
+        console.log("respuesta de propiedades: " + response);
         dispatch({ type: REQUEST_PROPERTIES_SUCCESS, payload: response.data });
     })
     .catch(error => {

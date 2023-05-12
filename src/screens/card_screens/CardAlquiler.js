@@ -13,7 +13,6 @@ import SelectDropdown from "react-native-select-dropdown";
 
 const CardAlquiler = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params
-  //const { cardData } = route.params;
   const [cardData] = useState([
     {
       id: 1,

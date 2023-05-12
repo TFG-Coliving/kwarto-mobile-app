@@ -14,7 +14,6 @@ export const getCurrentUser = (token) => dispatch => {
     }
   })
   .then(response => {
-    console.log(response);
     dispatch({ type: REQUEST_USER_SUCCESS, payload: response.data });
   })
   .catch(error => {

@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Keyboard}
 import CustomButton from "../../components/buttons/CustomButton";
 import useAuth from "../../redux/actions/auth/useAuth";
 import Input from "../../components/fields/Input";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Toast from 'react-native-toast-message';
 
 
@@ -18,7 +18,6 @@ const LoginScreen = ({navigation}) => {
     const { handleLogin } = useAuth();
 
     const [errors,setErrors] = React.useState({});
-    const dispatch = useDispatch();
 
     let loginOK = useSelector(state => state.authentication.isLoggedIn);
     let error = useSelector(state => state.authentication.errorLogin);
@@ -114,7 +113,7 @@ const LoginScreen = ({navigation}) => {
                     password
                 />
 
-                {/*BOTON LOGIN*/}
+                {/*BUTTON LOGIN*/}
 
                 <CustomButton
                     label={'Login'}

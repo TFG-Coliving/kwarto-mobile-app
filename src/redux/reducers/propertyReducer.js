@@ -145,8 +145,6 @@ const initialState = {
           rentReviews: [],
       },
   ],
-  
-  user_properties: null,
   error: null,
 };
 

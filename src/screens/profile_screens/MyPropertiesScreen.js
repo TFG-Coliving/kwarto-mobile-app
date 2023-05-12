@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
-  Image,
-  TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import RentAdCardComponent from "../../components/cards/rentAdCardComponent";
-import PujaAdCardComponent from "../../components/cards/pujaAdCardComponent";
+import AdCardComponent from "../../components/cards/AdCardComponent";
 import {useSelector} from "react-redux";
 import {
-  getProperties,
   getUserProperties
 } from "../../redux/actions/properties/propertyActions";
+import RentAdCardComponent from "../../components/cards/AdCardComponent";
 
 const MyPropertiesScreen = () => {
   let myProperties = useSelector((state) => state.properties.user_properties);
@@ -35,12 +30,13 @@ const MyPropertiesScreen = () => {
       {!scrollViewHidden && (
           <ScrollView showsVerticalScrollIndicator={false}>
             {myProperties.map((item) => (
-                <RentAdCardComponent onPress={() => handleCardPress(item)}
-                                     item={item}
-                                     name={item.name}
-                                     location={item.location}
-                                     price={item.price}
-                                     image={item.image}
+                <RentAdCardComponent
+                    onPress={() => handleCardPress(item)}
+                    item={item}
+                    name={item.name}
+                    province={item.province}
+                    available_rooms={item.available_rooms}
+                    image={item.image}
                 />
             ))}
           </ScrollView>

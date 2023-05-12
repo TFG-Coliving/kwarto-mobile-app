@@ -16,7 +16,7 @@ const RegisterScreen = ({navigation}) => {
     });
     const [errors,setErrors] = React.useState({});
 
-    let error = useSelector(state => state.authentication.error);
+    let error = useSelector(state => state.authentication.errorRegister);
 
     const validate = () => {
         Keyboard.dismiss();
@@ -38,6 +38,9 @@ const RegisterScreen = ({navigation}) => {
         }
         if(!inputs.phone){
             handleError('Phone is required','phone');
+            valid = false;
+        } else if(!inputs.phone.match(/^\d+$/)){
+            handleError('Please input valid phone number','phone');
             valid = false;
         }
         if(!inputs.password){

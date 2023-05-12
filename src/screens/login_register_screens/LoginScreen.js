@@ -4,6 +4,8 @@ import CustomButton from "../../components/buttons/CustomButton";
 import useAuth from "../../redux/actions/auth/useAuth";
 import Input from "../../components/fields/Input";
 import {useDispatch, useSelector} from "react-redux";
+import Toast from 'react-native-toast-message';
+
 
 
 const LoginScreen = ({navigation}) => {
@@ -19,7 +21,7 @@ const LoginScreen = ({navigation}) => {
     const dispatch = useDispatch();
 
     let loginOK = useSelector(state => state.authentication.isLoggedIn);
-    let error = useSelector(state => state.authentication.error);
+    let error = useSelector(state => state.authentication.errorLogin);
 
     const handleError = (errorMessage, input) =>{
         setErrors((prevState) => ({...prevState,[input]: errorMessage}))
@@ -123,26 +125,43 @@ const LoginScreen = ({navigation}) => {
 
                 <Text style ={{textAlign: 'center', color:'#666',marginBottom:30}}>Or login with ...</Text>
 
-                <View style ={{flexDirection:'row', justifyContent:'space-evenly'}}>
-                    <TouchableOpacity onPress = {()=>{}} style = {{borderColor:'#ddd', borderWidth:2,borderRadius:10,paddingHorizontal:30,paddingVertical:10}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Toast.show({
+                                type: 'info',
+                                text1: 'Coming soon!',
+                                text2: 'Our developers are working on it, please stay tuned!',
+                            });
+                        }}
+                        style={{ borderColor: '#ddd', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10 }}
+                    >
                         <Image
                             source={require('../../assets/misc/google.png')}
-                            style={{width: 30, height:30}}
+                            style={{ width: 30, height: 30 }}
                             resizeMode="contain"
                             alt="My Image"
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress = {()=>{}} style = {{borderColor:'#ddd', borderWidth:2,borderRadius:10,paddingHorizontal:30,paddingVertical:10}}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Toast.show({
+                                type: 'info',
+                                text1: 'Coming soon!',
+                                text2: 'Our developers are working on it, please stay tuned!',
+                            });
+                        }}
+                        style={{ borderColor: '#ddd', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10 }}
+                    >
                         <Image
                             source={require('../../assets/misc/facebook.png')}
-                            style={{width: 30, height:30}}
+                            style={{ width: 30, height: 30 }}
                             resizeMode="contain"
                             alt="My Image"
                         />
                     </TouchableOpacity>
                 </View>
-
                 <View style ={{flexDirection:'row', justifyContent:'center',marginBottom:10,paddingVertical:20}}>
                 <Text>New to the app?  </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
@@ -150,6 +169,7 @@ const LoginScreen = ({navigation}) => {
                 </TouchableOpacity>
                 </View>
             </ScrollView>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );
 }

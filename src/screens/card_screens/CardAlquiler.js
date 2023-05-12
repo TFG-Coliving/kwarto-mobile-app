@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,15 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Mapa from "../../components/fields/Mapa";
-//import DropDownPicker from 'react-native-dropdown-picker';
+import SelectDropdown from "react-native-select-dropdown";
 
 const CardAlquiler = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params
-  //const { cardData } = route.params;
   const [cardData] = useState([
     {
       id: 1,
@@ -45,29 +43,44 @@ const CardAlquiler = ({ route }) => {
           capacity: 2,
           bids: [],
         },
+        {
+          id: 2,
+          name: "Habitación individual",
+          price: 400.0,
+          dimensions: "20x20",
+          capacity: 2,
+          bids: [],
+        },
+        {
+          id: 3,
+          name: "Habitación suite",
+          price: 400.0,
+          dimensions: "20x20",
+          capacity: 2,
+          bids: [],
+        },
+        {
+          id: 4,
+          name: "Habitación litera",
+          price: 400.0,
+          dimensions: "20x20",
+          capacity: 2,
+          bids: [],
+        },
       ],
       is_bid: false,
       rentReviews: [],
     },
   ]);
 
-  /*const [open, setOpen] = useState(false);
-  const [value, setValue] = useState([
-    "italy",
-    "spain",
-    "barcelona",
-    "finland",
-  ]);
-  const [items, setItems] = useState([
-    { label: "Spain", value: "spain" },
-    { label: "Madrid", value: "madrid", parent: "spain" },
-    { label: "Barcelona", value: "barcelona", parent: "spain" },
+  const [habitaciones, setHabitaciones] = useState([]);
 
-    { label: "Italy", value: "italy" },
-    { label: "Rome", value: "rome", parent: "italy" },
-
-    { label: "Finland", value: "finland" },
-  ]);*/
+  useEffect(() => {
+    // Create a new array with only the names of the rooms
+    const newHabitaciones = cardData[0].rooms.map((room) => room.name);
+    // Update the habitaciones state with the new array
+    setHabitaciones(newHabitaciones);
+  }, [cardData]);
 
   return (
     <ScrollView style={styles.container}>
@@ -101,26 +114,26 @@ const CardAlquiler = ({ route }) => {
             longitude={cardData[0].coordinates_long_north}
           />
         </View>
-        {/*<DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          theme="DARK"
-          multiple={true}
-          mode="BADGE"
-          badgeDotColors={[
-            "#e76f51",
-            "#00b4d8",
-            "#e9c46a",
-            "#e76f51",
-            "#8ac926",
-            "#00b4d8",
-            "#e9c46a",
-          ]}
-        />*/}
+        <View style={styles.dropdown}>
+          <SelectDropdown 
+            data={habitaciones}
+            defaultValueByIndex
+            style={styles.dropdown}
+            onSelect={(selectedItem, index) => {
+              console.log(selectedItem, index);
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              // text represented after item is selected
+              // if data array is an array of objects then return selectedItem.property to render after item is selected
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              // text represented for each item in dropdown
+              // if data array is an array of objects then return item.property to represent item in dropdown
+              return item;
+            }}
+          />
+        </View>
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.favoritesButton}>
@@ -143,6 +156,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
+  },
+  dropdown: {
+    /*flex: 1,
+    alignContent: "center",
+    textAlign: "center",
+    marginRight: "auto",
+    marginLeft: "auto",
+    width: "100%",*/
+    flexGrow: 1,
+    alignItems: 'center',
+    width: '100%',
   },
   rooms: {
     borderRadius: 15,

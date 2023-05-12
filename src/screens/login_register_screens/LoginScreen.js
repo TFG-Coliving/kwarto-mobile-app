@@ -1,17 +1,69 @@
-import React, {useState} from 'react';
-import {View, Text, SafeAreaView, Image, TextInput, TouchableOpacity,ScrollView} from 'react-native';
-import {Ionicons, MaterialIcons} from "@expo/vector-icons";
+import React, {useEffect} from 'react';
+import {View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Keyboard} from 'react-native';
 import CustomButton from "../../components/buttons/CustomButton";
-import InputFields from "../../components/fields/InputFields";
 import useAuth from "../../redux/actions/auth/useAuth";
+import Input from "../../components/fields/Input";
+import {useDispatch, useSelector} from "react-redux";
+import Toast from 'react-native-toast-message';
+
 
 
 const LoginScreen = ({navigation}) => {
 
-    const { handleLogin } = useAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [inputs,setInputs] = React.useState({
+        email:'',
+        password:'',
+    });
 
+    const { handleLogin } = useAuth();
+
+    const [errors,setErrors] = React.useState({});
+    const dispatch = useDispatch();
+
+    let loginOK = useSelector(state => state.authentication.isLoggedIn);
+    let error = useSelector(state => state.authentication.errorLogin);
+
+    const handleError = (errorMessage, input) =>{
+        setErrors((prevState) => ({...prevState,[input]: errorMessage}))
+    }
+
+    const handleOnChange = (text,input) => {
+        setInputs((prevState) => ({...prevState,[input]: text}))
+    }
+
+    const validate = () => {
+        Keyboard.dismiss();
+        let valid = true;
+        if(!inputs.email){
+            handleError('Email is required','email');
+            valid = false;
+        } else if(!inputs.email.match(/\S+@\S+\.\S+/)){
+            handleError('Please input valid email','email');
+            valid = false;
+        }
+        if(!inputs.password) {
+            handleError('Password is required', 'password');
+            valid = false;
+        }
+
+        if (valid) {
+            handleLogin({email:inputs.email,password:inputs.password, preventDefault: () => {} });
+        }
+        //34:00
+    };
+
+
+    useEffect(() => {
+        if (loginOK && error===null) {
+            navigation.navigate('Home');
+        }
+
+        console.log(error);
+        if (error !== null) {
+            handleError('Network error', 'email');
+            handleError('Network error', 'password');
+        }
+    }, [loginOK, error]);
 
     return (
         <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
@@ -44,21 +96,22 @@ const LoginScreen = ({navigation}) => {
                         marginBottom: 30,
                     }}> Log in </Text>
 
-                <InputFields
-                    label={'Email'}
-                    icon={ <MaterialIcons name={'alternate-email'} size={24} color={'#333'} style={{marginRight: 5}}/>}
-                    keyboardType="email-address"
-                    onChangeText={setEmail}
-                    value={email}
+                <Input
+                    placeholder = "Enter your email address"
+                    iconName = "email-outline"
+                    label="Email"
+                    error={errors.email}
+                    onFocus={() => handleError(null, 'email')}
+                    onChangeText={text => handleOnChange(text,'email')}
                 />
-                <InputFields
-                    label={'Password'}
-                    icon={ <Ionicons name={'ios-lock-closed-outline'} size={24} color={'#333'} style={{marginRight: 5}}/>}
-                    inputType='password'
-                    fieldButtonLabel={"Forgot?"}
-                    fieldButtonFunction={()=>{}}
-                    onChangeText={setPassword}
-                    value={password}
+                <Input
+                    placeholder = "Enter your password"
+                    iconName = "lock-outline"
+                    label="Password"
+                    error={errors.password}
+                    onFocus={() => handleError(null, 'password')}
+                    onChangeText={text => handleOnChange(text,'password')}
+                    password
                 />
 
                 {/*BOTON LOGIN*/}
@@ -66,34 +119,49 @@ const LoginScreen = ({navigation}) => {
                 <CustomButton
                     label={'Login'}
                     onPress={() => {
-                        console.log(email)
-                        handleLogin({ email, password, preventDefault: () => {} })
-                        navigation.navigate('Home')
+                        validate();
                     }}
                 />
 
                 <Text style ={{textAlign: 'center', color:'#666',marginBottom:30}}>Or login with ...</Text>
 
-                <View style ={{flexDirection:'row', justifyContent:'space-evenly'}}>
-                    <TouchableOpacity onPress = {()=>{}} style = {{borderColor:'#ddd', borderWidth:2,borderRadius:10,paddingHorizontal:30,paddingVertical:10}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Toast.show({
+                                type: 'info',
+                                text1: 'Coming soon!',
+                                text2: 'Our developers are working on it, please stay tuned!',
+                            });
+                        }}
+                        style={{ borderColor: '#ddd', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10 }}
+                    >
                         <Image
                             source={require('../../assets/misc/google.png')}
-                            style={{width: 30, height:30}}
+                            style={{ width: 30, height: 30 }}
                             resizeMode="contain"
                             alt="My Image"
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress = {()=>{}} style = {{borderColor:'#ddd', borderWidth:2,borderRadius:10,paddingHorizontal:30,paddingVertical:10}}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Toast.show({
+                                type: 'info',
+                                text1: 'Coming soon!',
+                                text2: 'Our developers are working on it, please stay tuned!',
+                            });
+                        }}
+                        style={{ borderColor: '#ddd', borderWidth: 2, borderRadius: 10, paddingHorizontal: 30, paddingVertical: 10 }}
+                    >
                         <Image
                             source={require('../../assets/misc/facebook.png')}
-                            style={{width: 30, height:30}}
+                            style={{ width: 30, height: 30 }}
                             resizeMode="contain"
                             alt="My Image"
                         />
                     </TouchableOpacity>
                 </View>
-
                 <View style ={{flexDirection:'row', justifyContent:'center',marginBottom:10,paddingVertical:20}}>
                 <Text>New to the app?  </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
@@ -101,6 +169,7 @@ const LoginScreen = ({navigation}) => {
                 </TouchableOpacity>
                 </View>
             </ScrollView>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );
 }

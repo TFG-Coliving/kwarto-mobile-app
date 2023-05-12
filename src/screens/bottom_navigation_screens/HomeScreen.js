@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput,
+  TextInput, BackHandler,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AdCardComponent from "../../components/cards/AdCardComponent";
@@ -47,6 +47,15 @@ const HomeScreen = () => {
 
   const handleCardPress = (cardData) => cardData.is_bid ? navigation.navigate("CardPuja", { cardData }) : navigation.navigate("CardAlquiler", { cardData })
 
+  //Para que no se pueda volver atrass
+  const handleBackButton = () => {
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+  }, []);
 
   const searchFilterFunction = (text) => {
     if (selectedButton === "Pujas") {
@@ -156,12 +165,13 @@ const HomeScreen = () => {
           {filterData.map((item) => {
             return (
               <AdCardComponent
-                onPress={() => handleCardPress(item)}
-                item={item}
-                name={item.name}
-                province={item.province}
-                available_rooms={item.available_rooms}
-                image={item.image}
+                  key={item.id}
+                  onPress={() => handleCardPress(item)}
+                  item={item}
+                  name={item.name}
+                  province={item.province}
+                  available_rooms={item.available_rooms}
+                  image={item.image}
               />
             );
           })}

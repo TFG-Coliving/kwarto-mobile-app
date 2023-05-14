@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   REQUEST_USER_FAILURE,
-  REQUEST_USER_SUCCESS,
+  REQUEST_USER_SUCCESS, SET_PROFILE_PICTURE_URI,
   SET_USER_FIELD
 } from "./usersConstants";
 import {API_UPDATE_USER, API_USER} from "../../endpoints";
@@ -24,6 +24,9 @@ export const getCurrentUser = (token) => dispatch => {
 
 export const setUserField = (payload) => dispatch => {
   return dispatch({ type: SET_USER_FIELD, payload});
+}
+export const updateProfilePicture = (payload) => dispatch => {
+  return dispatch({ type: SET_PROFILE_PICTURE_URI, payload});
 }
 
 export const updateUser = (token, user) => dispatch => {

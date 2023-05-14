@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import EditFieldProfile from "../../components/fields/EditFieldProfile";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserField} from "../../redux/actions/users/usersActions";
+import ImagePickerButton from "../../components/buttons/AddPictureComponent";
 
 const PersonalInfoScreen = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const PersonalInfoScreen = () => {
               onChange={(value) => handleFieldChange('phone', value)}
               key="phoneNumber"
           />
+          <ImagePickerButton maxPhotos={1} />
         </View>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Save Changes</Text>

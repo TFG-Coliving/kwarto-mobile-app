@@ -23,7 +23,7 @@ const MyPropertiesScreen = () => {
 
 
   const navigation = useNavigation();
-  const handleCardPress = (cardData) => cardData.is_bid ? navigation.navigate("CardBid", { cardData }) : navigation.navigate("CardRent", { cardData });
+  const handleCardPress = (cardData) => cardData.is_bid ? navigation.navigate("CardPuja", { cardData }) : navigation.navigate("CardAlquiler", { cardData });
 
   return (
     <View style={styles.container}>

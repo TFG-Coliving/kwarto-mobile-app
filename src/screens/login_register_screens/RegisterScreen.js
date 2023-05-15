@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Keyboard}
 import CustomButton from "../../components/buttons/CustomButton";
 import useAuth from "../../redux/actions/auth/useAuth";
 import Input from "../../components/fields/Input";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 
 const RegisterScreen = ({navigation}) => {
 

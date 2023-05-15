@@ -13,20 +13,7 @@ const usersReducer = (state = initialState, action) => {
     case REQUEST_USER_SUCCESS:
       return {
         ...state,
-        user: {
-          firstname: action.payload.firstname,
-          lastname: action.payload.lastname,
-          email: action.payload.email,
-          role: action.payload.role,
-          phone: action.payload.phone,
-          score: action.payload.score,
-          score_hidden: action.payload.score_hidden,
-          birth_date: action.payload.birth_date,
-          profilePicture:{
-            uri: action.payload.profilePicture.uri
-          },
-          favorites: [...action.payload.favorites],
-        },
+        user: {...action.payload},
         error: null
       };
     case REQUEST_USER_FAILURE:
@@ -36,7 +23,7 @@ const usersReducer = (state = initialState, action) => {
         error: action.payload
       };
     case SET_CURRENT_USER:
-      return { ...state, user: action.payload };
+      return { ...state, user: {...action.payload} };
     case SET_USER_FIELD:
       const { field, value } = action.payload;
       return { ...state, user: { ...state.user, [field]: value } };

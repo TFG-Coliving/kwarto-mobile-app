@@ -41,25 +41,9 @@ export const getUserProperties = (token) => dispatch => {
     });
 }
 
-export const setProperty = (imagesUri,payload,token) => dispatch => {
+export const setProperty = (payload,token) => dispatch => {
     console.log(payload);
-
-
-    let images = [];
-    imagesUri.forEach(imageUri => {
-        images.push({
-            uri: imageUri,
-            type: 'image/jpeg',
-            name: 'propertyImage'
-        });
-    });
-    const newPayload = {
-        ...payload,
-        images: images
-    }
-    console.log("payload: ")
-    console.log(newPayload);
-    return axios.post(API_PROPERTIES, newPayload, {
+    return axios.post(API_PROPERTIES, payload, {
         headers: {
         'Authorization':'Bearer '+token
         }

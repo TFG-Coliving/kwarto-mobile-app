@@ -73,6 +73,8 @@ const CardAlquiler = ({ route }) => {
     },
   ]);
 
+  let indexRoom = 0;
+
   const [habitaciones, setHabitaciones] = useState([]);
 
   useEffect(() => {
@@ -115,12 +117,13 @@ const CardAlquiler = ({ route }) => {
           />
         </View>
         <View style={styles.dropdown}>
-          <SelectDropdown 
+          <SelectDropdown
             data={habitaciones}
             defaultValueByIndex
             style={styles.dropdown}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
+              indexRoom = index;
             }}
             buttonTextAfterSelection={(selectedItem, index) => {
               // text represented after item is selected
@@ -134,6 +137,11 @@ const CardAlquiler = ({ route }) => {
             }}
           />
         </View>
+        {indexRoom >= 0 && (
+          <View style={styles.cardRoom}>
+            <Text style={styles.cardTitle}>HOLA</Text>
+          </View>
+        )}
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.favoritesButton}>
@@ -165,8 +173,8 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     width: "100%",*/
     flexGrow: 1,
-    alignItems: 'center',
-    width: '100%',
+    alignItems: "center",
+    width: "100%",
   },
   rooms: {
     borderRadius: 15,
@@ -188,6 +196,14 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "white",
     width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 20,
+    borderRadius: 10,
+  },
+  cardRoom: {
+    backgroundColor: "white",
+    width: "100%",
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 20,

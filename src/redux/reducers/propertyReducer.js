@@ -53,7 +53,7 @@ const initialState = {
       coordinates_long_north: 41.55001651201284,
       coordinates_latitude_east:  2.098955621583387,
       score: 4.5,
-      available_rooms: "",
+      available_rooms: "-",
       dimensions: "",
       image:
         "https://www.surforma.com/media/filer_public_thumbnails/filer_public/25/c7/25c793ae-4b50-40f3-a954-1fdc52c999fd/l4068.jpg__800x600_q95_crop_subsampling-2_upscale.jpg",

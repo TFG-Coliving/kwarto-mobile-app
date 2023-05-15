@@ -151,7 +151,7 @@ const CardAlquiler = ({ route }) => {
         </View>
         {selectedRoomIndex > -1 && (
           <View>
-            <Text style={styles.cardTitle}>
+            <Text style={styles.cardTitleRoom}>
               {cardData[0].rooms[selectedRoomIndex].name}
             </Text>
             <View style={styles.cardFooter}>
@@ -245,6 +245,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
+  cardTitleRoom: {
+    fontSize: 28,
+    fontWeight: "bold",
+  },
   nota: {
     fontSize: 45,
     fontWeight: "bold",
@@ -264,7 +268,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 10,
   },
   mapa: {
     flexDirection: "row",

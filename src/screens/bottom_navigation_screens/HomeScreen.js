@@ -15,7 +15,9 @@ import { getProperties } from "../../redux/actions/properties/propertyActions";
 import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
+  
   let properties = useSelector((state) => state.properties.properties);
+  console.log("properties: ", properties);
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
 

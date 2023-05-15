@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Alert, Platform, Text, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
-  setUserField,
   updateProfilePicture
 } from "../../redux/actions/users/usersActions";
 
-const ImagePickerButton = ({ maxPhotos = 1 }) => {
+const ImagePickerButton = ({ buttonName = "select image/s", isMultiple = false }) => {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.authentication.token);
 
   const handlePress = async () => {
     if (Platform.OS !== 'web') {
@@ -23,13 +23,13 @@ const ImagePickerButton = ({ maxPhotos = 1 }) => {
 
     const { cancelled, selected } = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
+      allowsMultipleSelection: isMultiple,
       quality: 1,
       base64: true,
-      maxSelected: maxPhotos - selectedPhotos.length,
+      maxSelected: selectedPhotos.length,
     })
     .then((newPhotos) => {
-      dispatch(updateProfilePicture(newPhotos.uri ));
+      dispatch(updateProfilePicture(token,newPhotos.uri ));
     })
     .catch((error) => {
       console.error("error image picker: ",error);
@@ -42,15 +42,7 @@ const ImagePickerButton = ({ maxPhotos = 1 }) => {
       })) || [];
       console.log(newPhotos);
       setSelectedPhotos((prevSelectedPhotos) => [...prevSelectedPhotos, ...newPhotos]);
-
-
-
     }
-  };
-
-  const handleSave = () => {
-    console.log("hola");
-    dispatch({type: 'SET_USER_FIELD', payload: {field: 'profilePicture.uri', value: selectedPhotos[0].uri}});
   };
 
   return (
@@ -59,7 +51,7 @@ const ImagePickerButton = ({ maxPhotos = 1 }) => {
             style={styles.button}
             onPress={handlePress}
         >
-          <Text style={styles.buttonText}>Select Photos ({selectedPhotos.length}/{maxPhotos})</Text>
+          <Text style={styles.buttonText}>{buttonName}</Text>
         </TouchableOpacity>
       </>
   );

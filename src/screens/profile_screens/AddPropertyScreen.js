@@ -9,6 +9,7 @@ import InputProperty from "../../components/fields/InputProperty";
 import COLORS from "../../components/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {setProperty} from "../../redux/actions/properties/propertyActions";
+import AddPictureComponent from "../../components/buttons/AddPictureComponent";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ const MyForm = () => {
     is_bid: false,
     rooms: [],
   });
+  const [images, setImages] = useState([]);
 
   const token = useSelector(state => state.authentication.token);
   const dispatch = useDispatch();
@@ -37,9 +39,12 @@ const MyForm = () => {
       is_bid: value,
     });
   };
+  const handleNewPhotos = (photos) => {
+    setImages(photos.uri)
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(setProperty(formData, token));
+    dispatch(setProperty(images, formData, token));
   }
 
 
@@ -104,6 +109,7 @@ const MyForm = () => {
                 }}
                 keyboardType="numeric"
             />
+              <AddPictureComponent buttonName={"Add Pictures"} isMultiple={true} onNewPhotos={handleNewPhotos}/>
             </View>
 
             {formData.rooms.map((room, index) => (

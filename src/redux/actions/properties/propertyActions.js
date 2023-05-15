@@ -25,7 +25,6 @@ export const getProperties = (token) => dispatch => {
         dispatch({ type: REQUEST_PROPERTIES_FALIURE, payload: error.response.data });
     });
 }
-
 export const getUserProperties = (token) => dispatch => {
     return axios.get(API_USER_PROPERTY, {
         headers: {
@@ -42,9 +41,25 @@ export const getUserProperties = (token) => dispatch => {
     });
 }
 
-export const setProperty = (payload,token) => dispatch => {
+export const setProperty = (imagesUri,payload,token) => dispatch => {
     console.log(payload);
-    return axios.post(API_PROPERTIES, payload, {
+
+
+    let images = [];
+    imagesUri.forEach(imageUri => {
+        images.push({
+            uri: imageUri,
+            type: 'image/jpeg',
+            name: 'propertyImage'
+        });
+    });
+    const newPayload = {
+        ...payload,
+        images: images
+    }
+    console.log("payload: ")
+    console.log(newPayload);
+    return axios.post(API_PROPERTIES, newPayload, {
         headers: {
         'Authorization':'Bearer '+token
         }

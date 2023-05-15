@@ -43,7 +43,7 @@ const PersonalInfoScreen = () => {
               onChange={(value) => handleFieldChange('phone', value)}
               key="phoneNumber"
           />
-          <ImagePickerButton maxPhotos={1} />
+          <ImagePickerButton buttonName={"Change Profile Picture"} />
         </View>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Save Changes</Text>

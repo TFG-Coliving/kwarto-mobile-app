@@ -37,34 +37,42 @@ const CardAlquiler = ({ route }) => {
       rooms: [
         {
           id: 1,
-          name: "Habitación matrimonio",
-          price: 400.0,
-          dimensions: "20x20",
-          capacity: 2,
+          name: "Habitación individual",
+          price: 100.0,
+          dimensions: "10x20",
+          capacity: 1,
           bids: [],
         },
         {
           id: 2,
-          name: "Habitación individual",
-          price: 400.0,
+          name: "Habitación matrimonio",
+          price: 200.0,
           dimensions: "20x20",
           capacity: 2,
           bids: [],
         },
         {
           id: 3,
-          name: "Habitación suite",
-          price: 400.0,
-          dimensions: "20x20",
-          capacity: 2,
+          name: "Habitación familiar",
+          price: 300.0,
+          dimensions: "30x20",
+          capacity: 3,
           bids: [],
         },
         {
           id: 4,
           name: "Habitación litera",
           price: 400.0,
-          dimensions: "20x20",
-          capacity: 2,
+          dimensions: "40x20",
+          capacity: 4,
+          bids: [],
+        },
+        {
+          id: 5,
+          name: "Habitación patera",
+          price: 500.0,
+          dimensions: "40x20",
+          capacity: 5,
           bids: [],
         },
       ],
@@ -73,7 +81,12 @@ const CardAlquiler = ({ route }) => {
     },
   ]);
 
-  let indexRoom = 0;
+  const [selectedRoomIndex, setSelectedRoomIndex] = useState(-1);
+
+  function reloadIndex(selectedItem, index) {
+    console.log(selectedItem, index);
+    setSelectedRoomIndex(index);
+  }
 
   const [habitaciones, setHabitaciones] = useState([]);
 
@@ -122,8 +135,7 @@ const CardAlquiler = ({ route }) => {
             defaultValueByIndex
             style={styles.dropdown}
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-              indexRoom = index;
+              reloadIndex(selectedItem, index);
             }}
             buttonTextAfterSelection={(selectedItem, index) => {
               // text represented after item is selected
@@ -137,9 +149,27 @@ const CardAlquiler = ({ route }) => {
             }}
           />
         </View>
-        {indexRoom >= 0 && (
-          <View style={styles.cardRoom}>
-            <Text style={styles.cardTitle}>HOLA</Text>
+        {selectedRoomIndex > -1 && (
+          <View>
+            <Text style={styles.cardTitle}>
+              {cardData[0].rooms[selectedRoomIndex].name}
+            </Text>
+            <View style={styles.cardFooter}>
+              <View style={{ width: "50%" }}>
+                <Text style={styles.cardLocation}>
+                  Dimensiones: {cardData[0].rooms[selectedRoomIndex].dimensions}
+                </Text>
+                <Text style={styles.cardLocation}>
+                  Capacidad: {cardData[0].rooms[selectedRoomIndex].capacity}
+                </Text>
+              </View>
+              <View style={styles.rooms}>
+                <Text style={styles.numberRooms}>
+                  {cardData[0].rooms[selectedRoomIndex].price}€
+                </Text>
+                <Text style={styles.roomsText}>/noche</Text>
+              </View>
+            </View>
           </View>
         )}
       </View>
@@ -175,6 +205,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "center",
     width: "100%",
+    marginBottom: "5%",
   },
   rooms: {
     borderRadius: 15,

@@ -25,7 +25,6 @@ export const getProperties = (token) => dispatch => {
         dispatch({ type: REQUEST_PROPERTIES_FALIURE, payload: error.response.data });
     });
 }
-
 export const getUserProperties = (token) => dispatch => {
     return axios.get(API_USER_PROPERTY, {
         headers: {

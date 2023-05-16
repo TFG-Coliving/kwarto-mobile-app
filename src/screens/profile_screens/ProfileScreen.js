@@ -51,9 +51,7 @@ export default function ProfileScreen() {
         <View style={styles.container}>
           <View style={styles.profile}>
             <Image
-                source={{
-                  uri: "http://172.17.41.21:8000" + user?.profilePicture.uri,
-                }}
+                source={{uri: "http://172.17.41.21:8000" + user?.profilePicture.uri}}
                 style={styles.profilePicture}
             />
             <View style={styles.profileDetails}>

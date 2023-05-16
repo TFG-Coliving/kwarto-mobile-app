@@ -25,13 +25,12 @@ export const getCurrentUser = (token) => dispatch => {
 export const setUserField = (payload) => dispatch => {
   return dispatch({ type: SET_USER_FIELD, payload});
 }
-export const updateProfilePicture = (token, imageUri) => dispatch => {
+export const updateProfilePicture = (token, image) => dispatch => {
   let data = new FormData();
-  data.append('image', {
-    uri: imageUri,
-    type: 'image/jpeg',
-    name: 'profilePicture'
-  });
+  data.append('image', image);
+  console.log("data: ")
+  console.log(data)
+
   return axios.put(API_USER_PROFILE_PICTURE, data, {
     headers: {
       'Authorization':'Bearer '+token

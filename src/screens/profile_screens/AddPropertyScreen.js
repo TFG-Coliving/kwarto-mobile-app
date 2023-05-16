@@ -40,7 +40,7 @@ const MyForm = () => {
     });
   };
   const handleNewPhotos = (photos) => {
-    setImages(photos.uri)
+    setImages(photos)
   }
   const handleSubmit = (event) => {
     event.preventDefault();

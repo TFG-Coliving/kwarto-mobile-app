@@ -5,6 +5,8 @@ import {NavigationContainer} from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfileMenuScreen from "../screens/bottom_navigation_screens/ProfileMenuScreen";
 import HomeMenuScreen from "../screens/bottom_navigation_screens/HomeMenuScreen";
+import ReservasMenuScreen from "../screens/bottom_navigation_screens/ReservasMenuScreen";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,9 +25,19 @@ function MyTabs() {
                 component={HomeMenuScreen}
                 options={{
                   tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="home" color={color} size={30} />
+                    <Ionicons color={color} size={25} name="home"></Ionicons>
                   ),
                   headerShown: false
+                }}
+            />
+            <Tab.Screen
+                name="Mis reservas"
+                component={ReservasMenuScreen}
+                options={{
+                  tabBarIcon: ({ color, size }) => (
+                    <Ionicons color={color} size={25} name="calendar"></Ionicons>
+                  ),
+                  headerShown: true
                 }}
             />
             <Tab.Screen
@@ -33,7 +45,7 @@ function MyTabs() {
               component={ProfileMenuScreen}
               options={{
                 tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="account" color={color} size={30} />
+                  <Ionicons color={color} size={25} name="person"></Ionicons>
                 ),
                 headerShown: false
               }}

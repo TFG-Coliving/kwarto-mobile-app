@@ -10,6 +10,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Mapa from "../../components/fields/Mapa";
 import SelectDropdown from "react-native-select-dropdown";
+import { Modal } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const CardAlquiler = ({ route }) => {
   // Accede a la información de la card seleccionada desde route.params
@@ -97,6 +99,20 @@ const CardAlquiler = ({ route }) => {
     setHabitaciones(newHabitaciones);
   }, [cardData]);
 
+  const [isModalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+  const backModal = () => {
+    setModalVisible(false);
+    navigation.goBack();
+  };
+
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
@@ -172,6 +188,20 @@ const CardAlquiler = ({ route }) => {
             </View>
           </View>
         )}
+        <Modal visible={isModalVisible} animationType="slide" transparent>
+          <View style={styles.modalContainer}>
+            {/* Contenido del popup */}
+            <View style={styles.modalContent}>
+              <Text style={styles.modalText}>¿Aceptar reserva?</Text>
+              <TouchableOpacity style={styles.modalButton} onPress={backModal}>
+                <Text style={styles.modalButtonText}>Aceptar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.favoritesButton}>
@@ -182,7 +212,7 @@ const CardAlquiler = ({ route }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.bookButton}>
+        <TouchableOpacity style={styles.bookButton} onPress={openModal}>
           <Text style={styles.bookButtonText}>Reservar</Text>
         </TouchableOpacity>
       </View>
@@ -194,6 +224,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: "#8667f1",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  modalButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   dropdown: {
     /*flex: 1,

@@ -5,11 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Image,
+  Image, Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Mapa from "../../components/fields/Mapa";
 import SelectDropdown from "react-native-select-dropdown";
+import {useNavigation} from "@react-navigation/native";
 
 const CardAlquiler = ({route}) => {
 

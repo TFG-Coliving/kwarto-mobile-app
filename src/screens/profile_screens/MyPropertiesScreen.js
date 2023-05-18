@@ -2,44 +2,44 @@ import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  ScrollView,
+  ScrollView, Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AdCardComponent from "../../components/cards/AdCardComponent";
 import {useSelector} from "react-redux";
-import {
-  getUserProperties
-} from "../../redux/actions/properties/propertyActions";
-import RentAdCardComponent from "../../components/cards/AdCardComponent";
 
 const MyPropertiesScreen = () => {
-  let myProperties = useSelector((state) => state.properties.user_properties);
-  if (!myProperties) {
-    const token = useSelector((state) => state.authentication.token);
-    myProperties = getUserProperties(token);
-  }
-
-  const [scrollViewHidden, setScrollViewHidden] = useState(false);
-
+  let properties = useSelector((state) => state.properties.properties);
+  let user = useSelector((state) => state.users.user);
+  let myProperties = properties?.filter(property => property.owner.id === user?.id)
 
   const navigation = useNavigation();
-  const handleCardPress = (cardData) => cardData.is_bid ? navigation.navigate("CardPuja", { cardData }) : navigation.navigate("CardAlquiler", { cardData });
+  const handleCardPress = (cardData) => cardData._bid ? navigation.navigate("CardPuja", { cardData }) : navigation.navigate("CardAlquiler", { cardData });
 
+  user ? console.log("user id: ", user.id) : console.log("user is null")
   return (
     <View style={styles.container}>
-      {!scrollViewHidden && (
+      {myProperties ? (
           <ScrollView showsVerticalScrollIndicator={false}>
-            {myProperties.map((item) => (
-                <RentAdCardComponent
-                    onPress={() => handleCardPress(item)}
-                    item={item}
-                    name={item.name}
-                    province={item.province}
-                    available_rooms={item.available_rooms}
-                    image={item.image}
-                />
-            ))}
+            {myProperties.map((property) => {
+              console.log("holaaaa")
+              return (
+                  <AdCardComponent
+                      key={property.id}
+                      item={property}
+                      name={property.name}
+                      province={property.province}
+                      available_rooms={property.available_rooms}
+                      image={"http://172.17.41.21:8000" + property.images[0]?.uri}
+                      onPress={() => handleCardPress(property)}
+                  />
+              )
+            })}
           </ScrollView>
+      ) : (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text> You currently have no properties </Text>
+            </ScrollView>
       )}
     </View>
 

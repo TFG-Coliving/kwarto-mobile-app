@@ -20,7 +20,7 @@ const MyForm = () => {
     address: '',
     available_rooms: '',
     dimensions: '',
-    is_bid: false,
+    _bid: false,
     rooms: [],
   });
   const [images, setImages] = useState([]);
@@ -36,7 +36,7 @@ const MyForm = () => {
   const handleCheckboxChange = (value) => {
     setFormData({
       ...formData,
-      is_bid: value,
+      _bid: value,
     });
   };
   const handleNewPhotos = (photos) => {
@@ -44,7 +44,7 @@ const MyForm = () => {
   }
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(setProperty(images, formData, token));
+    dispatch(setProperty(formData, token));
   }
 
 
@@ -83,12 +83,12 @@ const MyForm = () => {
               />
               <View style={styles.checkBox}>
                 <TouchableOpacity
-                    onPress={() => handleCheckboxChange(!formData.is_bid)}
+                    onPress={() => handleCheckboxChange(!formData._bid)}
                 >
                   <View
                       style={[
                         styles.uncheckedBox,
-                        formData.is_bid && styles.checkedBox,
+                        formData._bid && styles.checkedBox,
                       ]}
                   />
                 </TouchableOpacity>

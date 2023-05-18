@@ -10,78 +10,11 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Mapa from "../../components/fields/Mapa";
 import SelectDropdown from "react-native-select-dropdown";
-import { Modal } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-const CardAlquiler = ({ route }) => {
-  // Accede a la información de la card seleccionada desde route.params
-  const [cardData] = useState([
-    {
-      id: 1,
-      name: "Prueba Alquiler",
-      country: "Spain",
-      province: "Madrid",
-      city: "Alcorcon",
-      address: "Plaza Reyes de España, 1",
-      coordinates_long_north: -3.828476,
-      coordinates_latitude_east: 40.349213,
-      score: 4.5,
-      available_rooms: 5,
-      dimensions: "400x400",
-      image:
-        "https://st3.idealista.com/news/archivos/styles/fullwidth_xl/public/2017-06/h1_b.jpeg?VersionId=mJfwx76Bg1ZROco4yQF3MKj.BSnHG999&itok=fQ6sr8S8",
-      facilities: [
-        {
-          id: 1,
-          name: "Parking",
-        },
-      ],
-      rooms: [
-        {
-          id: 1,
-          name: "Habitación individual",
-          price: 100.0,
-          dimensions: "10x20",
-          capacity: 1,
-          bids: [],
-        },
-        {
-          id: 2,
-          name: "Habitación matrimonio",
-          price: 200.0,
-          dimensions: "20x20",
-          capacity: 2,
-          bids: [],
-        },
-        {
-          id: 3,
-          name: "Habitación familiar",
-          price: 300.0,
-          dimensions: "30x20",
-          capacity: 3,
-          bids: [],
-        },
-        {
-          id: 4,
-          name: "Habitación litera",
-          price: 400.0,
-          dimensions: "40x20",
-          capacity: 4,
-          bids: [],
-        },
-        {
-          id: 5,
-          name: "Habitación patera",
-          price: 500.0,
-          dimensions: "40x20",
-          capacity: 5,
-          bids: [],
-        },
-      ],
-      is_bid: false,
-      rentReviews: [],
-    },
-  ]);
+const CardAlquiler = ({route}) => {
+
+  const [cardData] = useState([route.params?.cardData]);
+
 
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(-1);
 
@@ -120,7 +53,7 @@ const CardAlquiler = ({ route }) => {
           {cardData[0].score}
           <Ionicons style={styles.star} name="star"></Ionicons>
         </Text>
-        <Image style={styles.image} source={{ uri: cardData[0].image }} />
+        <Image style={styles.image} source={{ uri: "http://172.17.41.21:8000" + cardData[0].images[0]?.uri }} />
       </View>
       <View style={styles.cardInfo}>
         <Text style={styles.cardTitle}>{cardData[0].name}</Text>

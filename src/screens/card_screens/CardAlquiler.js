@@ -14,6 +14,7 @@ import Mapa from "../../components/fields/Mapa";
 import SelectDropdown from "react-native-select-dropdown";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 const CardAlquiler = ({ route }) => {
   const navigation = useNavigation();

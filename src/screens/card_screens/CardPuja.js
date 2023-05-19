@@ -18,8 +18,29 @@ import Toast from "react-native-toast-message";
 const CardPuja = ({ route }) => {
   const navigation = useNavigation();
 
-  const [cardData] = useState([route.params?.cardData]);
+  const [cardData, setCardData] = useState({
+    id: 1,
+    name: "",
+    country: "",
+    province: "",
+    city: "",
+    address: "",
+    coordinates_lat_north: 41.39,
+    coordinates_long_east: 2.153889,
+    score: 0.0,
+    available_rooms: 0,
+    dimensions: "",
+    images: [],
+    facilities: [],
+    rooms: [],
+    rentReviews: [],
+  });
 
+  useEffect(() => {
+    if (route.params && route.params.cardData) {
+      setCardData(route.params.cardData);
+    }
+  }, [route.params]);
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(-1);
 
   function reloadIndex(selectedItem, index) {
@@ -31,7 +52,7 @@ const CardPuja = ({ route }) => {
 
   useEffect(() => {
     // Create a new array with only the names of the rooms
-    const newHabitaciones = cardData[0].rooms.map((room) => room.name);
+    const newHabitaciones = cardData.rooms.map((room) => room.name);
     // Update the habitaciones state with the new array
     setHabitaciones(newHabitaciones);
   }, [cardData]);
@@ -61,35 +82,35 @@ const CardPuja = ({ route }) => {
       <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
           <Text style={styles.nota}>
-            {cardData[0].score}
+            {cardData.score}
             <Ionicons style={styles.star} name="star"></Ionicons>
           </Text>
           <Image
             style={styles.image}
-            source={{ uri: "http://172.17.41.21:8000" + cardData[0].image }}
+            source={{
+              uri: "http://172.17.41.21:8000" + cardData.images[0]?.uri,
+            }}
           />
         </View>
         <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>{cardData[0].name}</Text>
+          <Text style={styles.cardTitle}>{cardData.name}</Text>
           <View style={styles.cardFooter}>
             <View style={{ width: "50%" }}>
-              <Text style={styles.cardLocation}>{cardData[0].address}</Text>
+              <Text style={styles.cardLocation}>{cardData.address}</Text>
               <Text style={styles.cardLocation}>
-                {cardData[0].city}, {cardData[0].province}
+                {cardData.city}, {cardData.province}
               </Text>
-              <Text style={styles.cardLocation}>{cardData[0].country}</Text>
+              <Text style={styles.cardLocation}>{cardData.country}</Text>
             </View>
             <View style={styles.rooms}>
-              <Text style={styles.numberRooms}>
-                {cardData[0].available_rooms}
-              </Text>
+              <Text style={styles.numberRooms}>{cardData.available_rooms}</Text>
               <Text style={styles.roomsText}>Rooms</Text>
             </View>
           </View>
           <View style={styles.mapa}>
             <Mapa
-              latitude={cardData[0].coordinates_latitude_east}
-              longitude={cardData[0].coordinates_long_north}
+              latitude={cardData.coordinates_lat_north}
+              longitude={cardData.coordinates_long_east}
             />
           </View>
           <View style={styles.dropdown}>
@@ -133,21 +154,20 @@ const CardPuja = ({ route }) => {
           {selectedRoomIndex > -1 && (
             <View>
               <Text style={styles.cardTitle}>
-                {cardData[0].rooms[selectedRoomIndex].name}
+                {cardData.rooms[selectedRoomIndex].name}
               </Text>
               <View style={styles.cardFooter}>
                 <View style={{ width: "50%" }}>
                   <Text style={styles.cardLocation}>
-                    Dimensiones:{" "}
-                    {cardData[0].rooms[selectedRoomIndex].dimensions}
+                    Dimensiones: {cardData.rooms[selectedRoomIndex].dimensions}
                   </Text>
                   <Text style={styles.cardLocation}>
-                    Capacidad: {cardData[0].rooms[selectedRoomIndex].capacity}
+                    Capacidad: {cardData.rooms[selectedRoomIndex].capacity}
                   </Text>
                 </View>
                 <View style={styles.rooms}>
                   <Text style={styles.numberRooms}>
-                    {cardData[0].rooms[selectedRoomIndex].price}€
+                    {cardData.rooms[selectedRoomIndex].price}€
                   </Text>
                   <Text style={styles.roomsText}>/noche</Text>
                 </View>
@@ -187,6 +207,7 @@ const CardPuja = ({ route }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };

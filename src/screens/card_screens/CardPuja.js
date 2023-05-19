@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Modal,
+  SafeAreaView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Mapa from "../../components/fields/Mapa";
 import SelectDropdown from "react-native-select-dropdown";
-import { Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 const CardPuja = ({ route }) => {
-  // Accede a la información de la card seleccionada desde route.params
-  //const { cardData } = route.params;
+  const navigation = useNavigation();
+
   const [cardData] = useState([route.params?.cardData]);
 
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(-1);
@@ -36,7 +38,15 @@ const CardPuja = ({ route }) => {
 
   const [isModalVisible, setModalVisible] = useState(false);
   const openModal = () => {
-    setModalVisible(true);
+    if (selectedRoomIndex <= -1) {
+      Toast.show({
+        type: "info",
+        text1: "Warning!",
+        text2: "Please, select a room to continue.",
+      });
+    } else {
+      setModalVisible(true);
+    }
   };
   const closeModal = () => {
     setModalVisible(false);
@@ -46,116 +56,138 @@ const CardPuja = ({ route }) => {
     navigation.goBack();
   };
 
-  const navigation = useNavigation();
-
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Text style={styles.nota}>
-          {cardData[0].score}
-          <Ionicons style={styles.star} name="star"></Ionicons>
-        </Text>
-        <Image style={styles.image} source={{ uri: "http://172.17.41.21:8000" + cardData[0].image }} />
-      </View>
-      <View style={styles.cardInfo}>
-        <Text style={styles.cardTitle}>{cardData[0].name}</Text>
-        <View style={styles.cardFooter}>
-          <View style={{ width: "50%" }}>
-            <Text style={styles.cardLocation}>{cardData[0].address}</Text>
-            <Text style={styles.cardLocation}>
-              {cardData[0].city}, {cardData[0].province}
-            </Text>
-            <Text style={styles.cardLocation}>{cardData[0].country}</Text>
-          </View>
-          <View style={styles.rooms}>
-            <Text style={styles.numberRooms}>
-              {cardData[0].available_rooms}
-            </Text>
-            <Text style={styles.roomsText}>Rooms</Text>
-          </View>
-        </View>
-        <View style={styles.mapa}>
-          <Mapa
-            latitude={cardData[0].coordinates_latitude_east}
-            longitude={cardData[0].coordinates_long_north}
+    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+      <ScrollView style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Text style={styles.nota}>
+            {cardData[0].score}
+            <Ionicons style={styles.star} name="star"></Ionicons>
+          </Text>
+          <Image
+            style={styles.image}
+            source={{ uri: "http://172.17.41.21:8000" + cardData[0].image }}
           />
         </View>
-        <View style={styles.dropdown}>
-          <SelectDropdown
-            data={habitaciones}
-            onSelect={(selectedItem, index) => {
-              reloadIndex(selectedItem, index);
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              // text represented after item is selected
-              // if data array is an array of objects then return selectedItem.property to render after item is selected
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              // text represented for each item in dropdown
-              // if data array is an array of objects then return item.property to represent item in dropdown
-              return item;
-            }}
-          />
-          <Modal visible={isModalVisible} animationType="slide" transparent>
-            <View style={styles.modalContainer}>
-              {/* Contenido del popup */}
-              <View style={styles.modalContent}>
-                <Text style={styles.modalText}>¿Aceptar reserva?</Text>
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={backModal}
-                >
-                  <Text style={styles.modalButtonText}>Aceptar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={closeModal}
-                >
-                  <Text style={styles.modalButtonText}>Cancelar</Text>
-                </TouchableOpacity>
-              </View>
+        <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle}>{cardData[0].name}</Text>
+          <View style={styles.cardFooter}>
+            <View style={{ width: "50%" }}>
+              <Text style={styles.cardLocation}>{cardData[0].address}</Text>
+              <Text style={styles.cardLocation}>
+                {cardData[0].city}, {cardData[0].province}
+              </Text>
+              <Text style={styles.cardLocation}>{cardData[0].country}</Text>
             </View>
-          </Modal>
-        </View>
-        {selectedRoomIndex > -1 && (
-          <View>
-            <Text style={styles.cardTitle}>
-              {cardData[0].rooms[selectedRoomIndex].name}
-            </Text>
-            <View style={styles.cardFooter}>
-              <View style={{ width: "50%" }}>
-                <Text style={styles.cardLocation}>
-                  Dimensiones: {cardData[0].rooms[selectedRoomIndex].dimensions}
-                </Text>
-                <Text style={styles.cardLocation}>
-                  Capacidad: {cardData[0].rooms[selectedRoomIndex].capacity}
-                </Text>
-              </View>
-              <View style={styles.rooms}>
-                <Text style={styles.numberRooms}>
-                  {cardData[0].rooms[selectedRoomIndex].price}€
-                </Text>
-                <Text style={styles.roomsText}>/noche</Text>
-              </View>
+            <View style={styles.rooms}>
+              <Text style={styles.numberRooms}>
+                {cardData[0].available_rooms}
+              </Text>
+              <Text style={styles.roomsText}>Rooms</Text>
             </View>
           </View>
-        )}
-      </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.favoritesButton}>
-          <Text style={styles.favoritesButtonText}>Favoritos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.chatButton}>
-          <Text style={styles.chatButtonText}>Chat</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.bookButton} onPress={openModal}>
-          <Text style={styles.bookButtonText}>Reservar</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+          <View style={styles.mapa}>
+            <Mapa
+              latitude={cardData[0].coordinates_latitude_east}
+              longitude={cardData[0].coordinates_long_north}
+            />
+          </View>
+          <View style={styles.dropdown}>
+            <SelectDropdown
+              data={habitaciones}
+              onSelect={(selectedItem, index) => {
+                reloadIndex(selectedItem, index);
+              }}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                // text represented after item is selected
+                // if data array is an array of objects then return selectedItem.property to render after item is selected
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                // text represented for each item in dropdown
+                // if data array is an array of objects then return item.property to represent item in dropdown
+                return item;
+              }}
+            />
+            <Modal visible={isModalVisible} animationType="slide" transparent>
+              <View style={styles.modalContainer}>
+                {/* Contenido del popup */}
+                <View style={styles.modalContent}>
+                  <Text style={styles.modalText}>¿Aceptar reserva?</Text>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={backModal}
+                  >
+                    <Text style={styles.modalButtonText}>Aceptar</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={closeModal}
+                  >
+                    <Text style={styles.modalButtonText}>Cancelar</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          </View>
+          {selectedRoomIndex > -1 && (
+            <View>
+              <Text style={styles.cardTitle}>
+                {cardData[0].rooms[selectedRoomIndex].name}
+              </Text>
+              <View style={styles.cardFooter}>
+                <View style={{ width: "50%" }}>
+                  <Text style={styles.cardLocation}>
+                    Dimensiones:{" "}
+                    {cardData[0].rooms[selectedRoomIndex].dimensions}
+                  </Text>
+                  <Text style={styles.cardLocation}>
+                    Capacidad: {cardData[0].rooms[selectedRoomIndex].capacity}
+                  </Text>
+                </View>
+                <View style={styles.rooms}>
+                  <Text style={styles.numberRooms}>
+                    {cardData[0].rooms[selectedRoomIndex].price}€
+                  </Text>
+                  <Text style={styles.roomsText}>/noche</Text>
+                </View>
+              </View>
+            </View>
+          )}
+        </View>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.favoritesButton}
+            onPress={() => {
+              Toast.show({
+                type: "info",
+                text1: "Coming soon!",
+                text2: "Our developers are working on it, please stay tuned!",
+              });
+            }}
+          >
+            <Text style={styles.favoritesButtonText}>Favoritos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.chatButton}
+            onPress={() => {
+              Toast.show({
+                type: "info",
+                text1: "Coming soon!",
+                text2: "Our developers are working on it, please stay tuned!",
+              });
+            }}
+          >
+            <Text style={styles.chatButtonText}>Chat</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.bookButton} onPress={openModal}>
+            <Text style={styles.bookButtonText}>Reservar</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

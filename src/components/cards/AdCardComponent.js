@@ -5,7 +5,7 @@ const RentCardComponent = ({name, image, province, available_rooms, item, onPres
   return (
       <TouchableOpacity
           key={item.id}
-          style={item.is_bid ? styles.cardBid : styles.cardRent}
+          style={item._bid ? styles.cardBid : styles.cardRent}
           onPress={onPress}
       >
         <Image source={{ uri: image }} style={styles.cardImage} />

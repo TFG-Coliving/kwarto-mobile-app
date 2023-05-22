@@ -1,4 +1,5 @@
 import {
+  POST_PROPERTIES_SUCCESS,
   REQUEST_PROPERTIES_FALIURE,
   REQUEST_PROPERTIES_SUCCESS,
   SET_CURRENT_PROPERTY,
@@ -12,6 +13,12 @@ const initialState = {
 
 const propertyReducer = (state = initialState, action) => {
   switch (action.type) {
+    case POST_PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        properties: [...state.properties, action.payload],
+        error: null,
+      }
     case REQUEST_PROPERTIES_SUCCESS:
       console.log("la casa ahora es en el reducer: " + action.payload);
       return {

@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {
     View,
-    Text,
     StyleSheet,
-    TouchableOpacity,
     ScrollView,
-    Image,
-    TextInput, BackHandler,
+    Image, BackHandler,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AdCardComponent from "../../components/cards/AdCardComponent";
 import {useDispatch, useSelector} from "react-redux";
 import { getProperties } from "../../redux/actions/properties/propertyActions";
-import { Ionicons } from "@expo/vector-icons";
 import SearchBarComponent from "../../components/fields/SearchbarComponent";
 import SwitchBidRentComponent from "../../components/buttons/SwitchBidRentComponent";
 const HomeScreen = () => {
@@ -21,7 +17,7 @@ const HomeScreen = () => {
     const token = useSelector((state) => state.authentication.token);
     let properties = useSelector((state) => state.properties.properties);
     useEffect(() => {
-        properties = dispatch(getProperties(token));
+        dispatch(getProperties(token));
     }, [token]);
 
     const [filteredProperties, setFilteredProperties] = useState(properties);

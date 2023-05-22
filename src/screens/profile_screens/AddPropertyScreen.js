@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setProperty} from "../../redux/actions/properties/propertyActions";
 import AddPictureComponent from "../../components/buttons/AddPictureComponent";
 
-const MyForm = () => {
+const MyForm = ({navigation}) => {
   const [formData, setFormData] = useState({
     name: '',
     country: '',
@@ -24,7 +24,7 @@ const MyForm = () => {
     rooms: [],
   });
   const [images, setImages] = useState([]);
-
+  let error = useSelector(state => state.properties.error);
   const token = useSelector(state => state.authentication.token);
   const dispatch = useDispatch();
   const handleFieldChange = (field, value) => {
@@ -45,6 +45,7 @@ const MyForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(setProperty(formData, token));
+    error ? alert(error) : navigation.navigate("ProfileScreen");
   }
 
 

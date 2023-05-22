@@ -4,6 +4,8 @@ import {Ionicons} from "@expo/vector-icons";
 
 const SearchBarComponent = ({ properties, onFilter }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    let initialProperties = properties?.filter((property) => property._bid === false);
+    if (initialProperties.length === 0) initialProperties = properties?.filter((property) => property._bid === true);
 
     const handleInputChange = (value) => {
         setSearchTerm(value);
@@ -11,10 +13,8 @@ const SearchBarComponent = ({ properties, onFilter }) => {
     };
 
     const filterProperties = (term) => {
-        const filteredProperties = properties.filter((property) =>
-            property.province.toLowerCase().startsWith(term.toLowerCase())
-        );
-        onFilter(filteredProperties);
+        const filteredProperties = properties.filter((property) => property.province.toLowerCase().startsWith(term.toLowerCase()));
+        term ? onFilter(filteredProperties) : onFilter(initialProperties);
     };
 
     return (

@@ -21,9 +21,14 @@ const HomeScreen = () => {
     }, [token]);
 
     const [filteredProperties, setFilteredProperties] = useState(properties);
+    const [propertiesType, setPropertiesType] = useState(properties);
     const handleFilter = (filtered) => {
         setFilteredProperties(filtered)
     };
+    const handleType = (filtered) => {
+        setPropertiesType(filtered)
+        setFilteredProperties(filtered)
+    }
 
 
     const handleBackButton = () => {
@@ -45,9 +50,9 @@ const HomeScreen = () => {
                     alt="My Image"
                 />
             </View>
-            <SearchBarComponent properties={filteredProperties ? filteredProperties : properties } onFilter={handleFilter}/>
+            <SearchBarComponent properties={propertiesType ? propertiesType : properties } onFilter={handleFilter}/>
             <View style={styles.buttonContainer}>
-                <SwitchBidRentComponent properties={properties} onFilter={handleFilter}/>
+                <SwitchBidRentComponent properties={properties} onFilter={handleType}/>
             </View>
 
             {filteredProperties ? (

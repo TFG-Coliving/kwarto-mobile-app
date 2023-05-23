@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 const SearchBarComponent = ({ properties, onFilter }) => {
     const [searchTerm, setSearchTerm] = useState('');
     let initialProperties = properties?.filter((property) => property._bid === false);
-    if (initialProperties.length === 0) initialProperties = properties?.filter((property) => property._bid === true);
+    if (initialProperties?.length === 0) initialProperties = properties?.filter((property) => property._bid === true);
 
     const handleInputChange = (value) => {
         setSearchTerm(value);

@@ -29,7 +29,7 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Mis reservas"
+        name="Bookings"
         component={ReservasMenuScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
